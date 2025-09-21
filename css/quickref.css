@@ -1,627 +1,470 @@
-/* Main stylesheet for D&D 5e Quick Reference web app */
+/* 1. MODERN THEME VARIABLES  */
+:root {
+    /* Fonts */
+    --font-primary: 'Inter', 'Noto Sans', sans-serif;
+    --font-secondary: 'Lora', serif;
+    --font-size-base: 16px;
+    --font-size-title: 1.25rem;
 
-/* Section containers: main card-like blocks for each rules section */
-.section-container {
-    border: 8px solid;
-    border-radius: 8px;
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-    width: 100%;
-    margin-bottom: 8px;
-    page-break-inside: avoid;
-}
+    /* Light Theme (AA Compliant) */
+    --color-bg: #f7fafc;
+    --color-surface: #ffffff;
+    --color-text-primary: #1A202C;
+    --color-text-secondary: #4A5568;
+    --color-border: #E2E8F0;
+    --color-shadow: rgba(0, 0, 0, 0.05);
 
-/* Content area inside each section */
-.section-content {
-    padding: 8px;
-    padding-bottom: 0;
-    border-radius: 8px;
-    margin-top: 0;
-    background-color: white;
-    border-color: inherit;
-    font-size: inherit;
-}
+    /* Dark Theme (AA Compliant) */
+    --color-bg-dark: #121212;
+    --color-surface-dark: #1F1F1F;
+    --color-text-primary-dark: #E2E8F0;
+    --color-text-secondary-dark: #A0AEC0;
+    --color-border-dark: #3b4252;
+    --color-shadow-dark: rgba(0, 0, 0, 0.4);
 
-/* Section title bar */
-.section-title {
-    height: 32px;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-family: Lora, 'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif;
-    font-variant: small-caps;
-    font-weight: bold;
-    background-color: inherit;
-    color: white;
-    font-size: 16pt;
-}
+    /* Section Colors (Light Theme) */
+    --color-movement: #D32F2F;
+    --color-action: #3A4B6A;
+    --color-bonus-action: #6B46C1;
+    --color-reaction: #2E7D32;
+    --color-condition: #DD6B20;
+    --color-environment: #00796B;
+    --color-settings: #2B6CB0;
 
-/* Utility class for floating elements to the right */
-.float-right {
-    float: right;
+    /* Default Theme Assignments */
+    --theme-bg: var(--color-bg);
+    --theme-surface: var(--color-surface);
+    --theme-text-primary: var(--color-text-primary);
+    --theme-text-secondary: var(--color-text-secondary);
+    --theme-border: var(--color-border);
+    --theme-shadow: 0 4px 8px -2px var(--color-shadow), 0 0 1px var(--color-shadow);
+    --theme-modal-backdrop: rgba(26, 32, 44, 0.5);
 }
 
-/* Subtitle and reference text in sections and modals */
-.section-subtitle,
-#modal-reference {
-    display: block;
-    margin-bottom: 8px;
-    font-size: inherit;
-    font-style: italic;
+.dark-mode-active {
+    --theme-bg: var(--color-bg-dark);
+    --theme-surface: var(--color-surface-dark);
+    --theme-text-primary: var(--color-text-primary-dark);
+    --theme-text-secondary: var(--color-text-secondary-dark);
+    --theme-border: var(--color-border-dark);
+    --theme-shadow: 0 4px 12px -2px var(--color-shadow-dark), 0 0 1px var(--color-shadow-dark);
+    --theme-modal-backdrop: rgba(0, 0, 0, 0.7);
+
+    /* Section Color Overrides (Dark Theme) */
+    --color-movement: #E57373;
+    --color-action: #7C91B8;
+    --color-bonus-action: #9575CD;
+    --color-reaction: #66BB6A;
+    --color-condition: #FFB74D;
+    --color-environment: #4DB6AC;
+    --color-settings: #64B5F6;
 }
 
-#modal-reference {
-    margin-top: 1em;
+/* 2. BASE & GLOBAL STYLES    */
+html {
+    font-size: var(--font-size-base);
 }
 
-/* Row container for items and text in sections */
-.section-row {
-    font-size: inherit;
-}
-
-.section-row:before,
-.section-row:after {
-    display: table;
-    content: " ";
-    clear: both;
-}
-
-.section-row+.section-subtitle {
-    margin-top: 1em;
-}
-
-/* Item card: represents a single rule or action */
-.item {
-    margin-bottom: 8px;
-    float: left;
-    display: flex;
-    font-size: inherit;
-    vertical-align: top;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-/* Icon for each item */
-.item-icon {
-    float: left;
-    flex: 0 0 auto;
-    background-repeat: no-repeat;
-    background-size: contain;
-    box-sizing: border-box;
-    border-radius: 4px;
-    margin-right: 4px;
-}
-
-/* Title of the item */
-.item-title {
-    font-weight: bold;
-    font-size: inherit;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Subtitle/description of the item */
-.item-desc {
-    font-style: italic;
-    font-size: inherit;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Container for item text */
-.item-text-container {
-    flex: 1;
-    padding-right: 4px;
-    font-size: inherit;
-    height: 100%;
-}
-
-/* Section and item color themes for each rules section */
-#section-movement,
-#section-movement .item-icon {
-    background-color: maroon;
-    border-color: maroon;
-}
-#section-movement .text {
-    color: maroon;
-}
-#section-action,
-#section-action .item-icon {
-    background-color: black;
-    border-color: black;
-}
-#section-action .text {
-    color: black;
-}
-#section-bonus-action,
-#section-bonus-action .item-icon {
-    background-color: indigo;
-    border-color: indigo;
-}
-#section-bonus-action .text {
-    color: indigo;
-}
-#section-reaction,
-#section-reaction .item-icon {
-    background-color: green;
-    border-color: green;
-}
-#section-reaction .text {
-    color: green;
-}
-#section-condition,
-#section-condition .item-icon {
-    background-color: darkgoldenrod;
-    border-color: darkgoldenrod;
-}
-#section-condition .text {
-    color: darkgoldenrod;
-}
-#section-environment,
-#section-environment .item-icon {
-    background-color: teal;
-    border-color: teal;
-}
-#section-environment .text {
-    color: teal;
-}
-#section-settings,
-#section-section-settings .item-icon {
-    background-color: darkblue;
-    border-color: darkblue;
-}
-#section-settings .text {
-    color: darkblue;
-}
-
-/* Page container: centers the main content */
 body {
     display: flex;
     justify-content: center;
-    align-content: center;
+    background-color: var(--theme-bg);
+    color: var(--theme-text-primary);
+    font-family: var(--font-primary);
 }
 
-/* Utility and layout classes */
-.hidden {
-    display: none;
+body.loading .page {
+    visibility: hidden;
+    opacity: 0;
 }
-ul {
-    padding-left: 20px;
+
+.page {
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+    transition: opacity 0.3s ease-in;
 }
+
+body.loaded .page {
+    opacity: 1;
+}
+
 p,
 hr {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
-hr {
-    border: 0px;
-    border-top: 1px solid gray;
-}
+
 p:first-child {
-    margin-top: 1em;
+    margin-top: 0;
 }
 
-/* Modal dialog styles for popups */
-.modal-open {
+hr {
+    border: 0;
+    border-top: 1px solid var(--theme-border);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 3. LAYOUT & SECTION STYLES    */
+.section-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    page-break-inside: avoid;
+    overflow: hidden;
+    background-color: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    box-shadow: var(--theme-shadow);
+}
+
+.section-content {
+    padding: 16px;
+    background-color: var(--theme-surface);
+    font-size: inherit;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 12px 16px;
+    background-color: var(--section-color);
+    color: #fff;
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-title);
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+.section-subtitle {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--theme-text-secondary);
+    font-style: italic;
+}
+
+.section-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#section-settings .settings-item {
+    flex-grow: 1;
+    flex-basis: 280px;
+    min-height: 54px;
+    align-items: center;
+}
+
+#section-settings .item-icon {
+    display: flex;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.float-right {
+    margin-left: auto;
+}
+
+/* 4. ITEM & COMPONENT STYLES */
+.quickref-item,
+.settings-item {
+    display: flex;
+    vertical-align: top;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    color: inherit;
+    font-size: inherit;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.quickref-item:hover,
+.settings-item:hover,
+.quickref-item:focus,
+.settings-item:focus {
+    background-color: var(--theme-bg);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.item-icon {
+    flex: 0 0 44px;
+    height: 44px;
+    margin-right: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.item-text-container {
+    flex: 1;
+    height: 100%;
+    padding-right: 4px;
+}
+
+.item-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--theme-text-primary);
+    font-size: inherit;
+    font-weight: 600;
+}
+
+.item-desc {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--theme-text-secondary);
+    font-size: 0.9em;
+    font-style: normal;
+}
+
+/* 5. THEME COLOR ASSIGNMENT  */
+#section-movement { --section-color: var(--color-movement); }
+#section-action { --section-color: var(--color-action); }
+#section-bonus-action { --section-color: var(--color-bonus-action); }
+#section-reaction { --section-color: var(--color-reaction); }
+#section-condition { --section-color: var(--color-condition); }
+#section-environment { --section-color: var(--color-environment); }
+#section-settings { --section-color: var(--color-settings); }
+
+.section-title {
+    background-color: var(--section-color);
+}
+
+.item-icon {
+    background-color: var(--section-color);
+}
+
+#section-settings .item-icon {
+    background-color: transparent;
+}
+
+/* 6. MODAL STYLES            */
+body.modal-open {
     overflow: hidden;
 }
-.modal-open .modal {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+
 .modal {
+    display: none;
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     z-index: 1040;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     outline: 0;
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
 }
-.modal-visible {
-    display: block;
+
+body.modal-open .modal {
+    display: flex;
+    overflow-y: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
-.modal-dialog {
+
+.modal-backdrop {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: var(--theme-modal-backdrop);
+}
+
+.modal-dialog-body {
     position: relative;
     width: auto;
     margin: 8px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: transform 0.25s ease, opacity 0.25s ease;
 }
-.modal-backdrop {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: #888;
-    opacity: .75;
-    overflow: hidden;
+
+body.modal-open .modal-dialog-body {
+    opacity: 1;
+    transform: scale(1);
 }
+
 .modal-container {
     background-clip: padding-box;
     outline: 0;
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-}
-.modal-footer {
-    padding: 15px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
 }
 
-/* Responsive font and item sizes for different devices */
-/* Smart phone, portrait */
-@media (min-width: 0px) and (max-width: 479px) {
-    .fontsize {
-        font-size: 12pt;
-    }
-
-    .iconsize {
-        width: 44px;
-        height: 44px;
-    }
-
-    .itemsize {
-        height: 44px;
-        width: 100%;
-    }
-
-    .modalsize {}
-}
-
-/* Smart phone, landscape */
-@media (min-width: 480px) and (max-width: 767px) {
-    .fontsize {
-        font-size: 11pt;
-    }
-
-    .iconsize {
-        width: 40px;
-        height: 40px;
-    }
-
-    .itemsize {
-        height: 40px;
-        width: 50%;
-    }
-
-    .modalsize {}
-}
-
-/* Tablet, portrait */
-@media (min-width: 768px) and (max-width: 991px) {
-    .fontsize {
-        font-size: 11pt;
-    }
-
-    .iconsize {
-        width: 40px;
-        height: 40px;
-    }
-
-    .itemsize {
-        height: 40px;
-        width: 33%;
-    }
-
-    .modalsize {
-        width: 600px;
-        margin: 30px auto;
-    }
-}
-
-/* Tablet, landscape */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .fontsize {
-        font-size: 12pt;
-    }
-
-    .iconsize {
-        width: 44px;
-        height: 44px;
-    }
-
-    .itemsize {
-        height: 44px;
-        width: 33%;
-    }
-
-    .modalsize {
-        width: 600px;
-        margin: 30px auto;
-    }
-}
-
-/* Small desktop screen */
-@media (min-width: 1200px) and (max-width: 1599px) {
-    .fontsize {
-        font-size: 12pt;
-    }
-
-    .iconsize {
-        width: 44px;
-        height: 44px;
-    }
-
-    .itemsize {
-        height: 44px;
-        width: 25%;
-    }
-
-    .modalsize {
-        width: 600px;
-        margin: 30px auto;
-    }
-}
-
-/* Large desktop screen */
-@media (min-width: 1600px) {
-    .fontsize {
-        font-size: 12pt;
-    }
-
-    .iconsize {
-        width: 44px;
-        height: 44px;
-    }
-
-    .itemsize {
-        height: 44px;
-        width: 20%;
-    }
-
-    .modalsize {
-        width: 600px;
-        margin: 30px auto;
-    }
-}
-
-/* Print */
-@media print {
-    .fontsize {
-        font-size: 10pt;
-    }
-
-    .iconsize {
-        width: 36px;
-        height: 36px;
-    }
-
-    .itemsize {
-        height: 36px;
-        width: 33%;
-    }
-
-    .modalsize {}
-}
-
-/* Switch/toggle styles for settings */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 28px;
-}
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-input:checked+.slider {
-    background-color: darkblue;
-}
-input:focus+.slider {
-    box-shadow: 0 0 1px darkblue;
-}
-input:checked+.slider:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
-}
-.slider.round {
-    border-radius: 28px;
-}
-.slider.round:before {
-    border-radius: 50%;
-}
-.settings {
-    font-weight: bold;
+#modal-reference {
+    display: block;
+    margin-top: 1em;
+    color: var(--theme-text-secondary);
     font-size: inherit;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    font-style: italic;
 }
 
-/* Dark mode overrides for backgrounds, text, and modal */
-/* Dark mode background and text color */
-.dark-mode-active {
-    background-color: #222;
-    color: #fff;
-}
-
-/* Section container border color in dark mode */
-.dark-mode-active .section-container {
-    border-color: #444;
-}
-
-/* Section content background and text color in dark mode */
-.dark-mode-active .section-content {
-    background-color: #333;
-    color: #fff;
-}
-
-/* Section row, subtitle, and modal reference text color in dark mode */
-.dark-mode-active .section-row,
-.dark-mode-active .section-subtitle,
-.dark-mode-active #modal-reference {
-    color: #fff;
-}
-
-/* Item background color in dark mode */
-.dark-mode-active .item {
-    background-color: #333;
-}
-
-/* Item title, description, and text container color in dark mode */
-.dark-mode-active .item-title,
-.dark-mode-active .item-desc,
-.dark-mode-active .item-text-container {
-    color: #fff;
-}
-
-/* Horizontal rule color in dark mode */
-.dark-mode-active hr {
-    border-top-color: #666;
-}
-
-/* Modal backdrop color in dark mode */
-.dark-mode-active .modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-/* Modal container shadow in dark mode */
-.dark-mode-active .modal-container {
-    box-shadow: 0 3px 9px rgba(255, 255, 255, 0.5);
-}
-
-/* Modal footer border color in dark mode */
-.dark-mode-active .modal-footer {
-    border-top-color: #555;
-}
-
-/* Section color overrides in dark mode for each rules section */
-.dark-mode-active #section-movement,
-.dark-mode-active #section-movement .item-icon {
-    background-color: #8f3838;
-    border-color: #8f3838;
-}
-.dark-mode-active #section-movement .text {
-    color: #fff;
-}
-.dark-mode-active #section-action .text {
-    color: #fff;
-}
-.dark-mode-active #section-action,
-.dark-mode-active #section-action .item-icon {
-    background-color: #09151A;
-    border-color: #09151A;
-}
-.dark-mode-active #section-bonus-action .text {
-    color: #fff;
-}
-.dark-mode-active #section-bonus-action,
-.dark-mode-active #section-bonus-action .item-icon {
-    background-color: #311942;
-    border-color: #311942;
-}
-.dark-mode-active #section-reaction .text {
-    color: #fff;
-}
-.dark-mode-active #section-reaction,
-.dark-mode-active #section-reaction .item-icon {
-    background-color: DarkOliveGreen;
-    border-color: DarkOliveGreen;
-}
-.dark-mode-active #section-condition .text {
-    color: #fff;
-}
-.dark-mode-active #section-condition,
-.dark-mode-active #section-condition .item-icon {
-    background-color: #7a4b2a;
-    border-color: #7a4b2a;
-}
-.dark-mode-active #section-environment .text {
-    color: #fff;
-}
-.dark-mode-active #section-environment,
-.dark-mode-active #section-environment .item-icon {
-    background-color: #2f4f4f;
-    border-color: #2f4f4f;
-}
-.dark-mode-active #section-settings .text {
-    color: #fff;
-}
-.dark-mode-active #section-settings,
-.dark-mode-active #section-section-settings .item-icon {
-    background-color: DarkSlateBlue;
-    border-color: DarkSlateBlue;
-}
-
-/* Switch styles in dark mode */
-.dark-mode-active input:checked+.slider {
-    background-color: DarkSlateBlue;
-}
-.dark-mode-active input:focus+.slider {
-    box-shadow: 0 0 1px DarkSlateBlue;
-}
-
-/* Dark mode backdrop color */
-.dark-mode-active .modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.75); /* Dark mode backdrop color */
-}
-
-/* Dark mode modal container shadow */
-.dark-mode-active .modal-container {
-    box-shadow: 0 3px 9px rgba(255, 255, 255, 0.5); /* Dark mode modal container shadow */
-}
-
-/* Dark mode modal footer border color */
-.dark-mode-active .modal-footer {
-    border-top-color: #555; /* Dark mode modal footer border color */
-}
-
-/* Cookie notice bar at the bottom of the page */
-.cookie-notice {
-    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: black;
-    color: white;
-    padding: 1em;
+.modal-close-button {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 32px; height: 32px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--theme-bg);
+    color: var(--theme-text-secondary);
+    font-size: 1.5rem;
+    line-height: 1;
     text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus {
+    background-color: var(--theme-surface);
+    color: var(--theme-text-primary);
+    outline: none;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    box-shadow: var(--theme-shadow);
+}
+
+.modal-header, .modal-body, .modal-footer {
+    padding: 16px;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--theme-border);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    flex: 1 1 auto;
+    font-size: 1rem;
+    color: var(--theme-text-primary);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--theme-border);
+    text-align: right;
+}
+
+/* 7. CONTROLS (SWITCH, ETC)  */
+.switch { position: relative; display: inline-block; width: 48px; height: 28px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; cursor: pointer; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; }
+input:checked + .slider { background-color: var(--color-settings); }
+input:checked + .slider:before { transform: translateX(20px); }
+.slider.round { border-radius: 28px; }
+.slider.round:before { border-radius: 50%; }
+
+.settings-item:focus-within {
+    box-shadow: 0 0 0 2px var(--theme-surface), 0 0 0 4px var(--color-settings);
+}
+
+/* 8. COOKIE NOTICE BANNER     */
+.cookie-notice {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
     z-index: 9999;
     display: none;
-}
-.cookie-notice p {
-    margin: 0 0 1em 0;
-}
-.cookie-notice button {
-    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-    background: green;
-    border: none;
-    color: white;
-    padding: 0.5em 1em;
+    padding: 1em;
+    background: var(--theme-surface);
+    color: var(--theme-text-primary);
+    font-family: var(--font-primary);
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    border-top: 1px solid var(--theme-border);
+    box-shadow: 0 -4px 12px var(--color-shadow);
+}
+
+.cookie-notice p { margin: 0 0 1em 0; }
+.cookie-notice button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 6px;
+    background: var(--color-settings);
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 1rem;
     cursor: pointer;
+}
+
+.cookie-notice button:hover {
+    background: #005fa3;
+}
+
+/* 8. RESPONSIVE & PRINT STYLES      */
+@media (min-width: 0px) and (max-width: 479px) {
+    html { font-size: 16px; }
+    .item-icon { width: 44px; height: 44px; }
+    .quickref-item { width: 100%; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    html { font-size: 15px; }
+    .item-icon { width: 40px; height: 40px; }
+    .quickref-item { width: calc(50% - 4px); }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html { font-size: 15px; }
+    .item-icon { width: 40px; height: 40px; }
+    .quickref-item { width: calc(33.333% - 6px); }
+    .modal-dialog-body { width: 600px; margin: 30px auto; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    html { font-size: 16px; }
+    .item-icon { width: 44px; height: 44px; }
+    .quickref-item { width: calc(33.333% - 6px); }
+    .modal-dialog-body { width: 600px; margin: 30px auto; }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+    html { font-size: 16px; }
+    .item-icon { width: 44px; height: 44px; }
+    .quickref-item { width: calc(25% - 6px); }
+    .modal-dialog-body { width: 600px; margin: 30px auto; }
+}
+
+@media (min-width: 1600px) {
+    html { font-size: 16px; }
+    .item-icon { width: 44px; height: 44px; }
+    .quickref-item { width: calc(20% - 7px); }
+    .modal-dialog-body { width: 600px; margin: 30px auto; }
+}
+
+@media print {
+    html { font-size: 10pt; }
+    body { padding: 0; }
+    .section-container { box-shadow: none; margin-bottom: 12px; }
+    .quickref-item { height: 36px; width: 33.333%; }
+    .item-icon { width: 36px; height: 36px; }
+    .item-title { font-size: 0.95em; }
+    .item-desc { font-size: 0.85em; }
+    .modal, .modal-backdrop { display: none !important; }
 }

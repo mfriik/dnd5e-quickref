@@ -1,0 +1,208 @@
+[
+    {
+        "title": "Climb",
+        "optional": "Standard rule",
+        "icon": "crags",
+        "subtitle": "Costs 1 extra foot per foot",
+        "description": "Each foot of movement costs 1 extra foot of movement while climbing.",
+        "reference": "PHB, pg. 363.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "If you have a Climb Speed, you ignore this extra cost. The DM might require a Strength (Athletics) check if the climb is difficult."
+            }
+        ]
+    },
+    {
+        "title": "Crawl",
+        "optional": "Standard rule",
+        "icon": "crawl",
+        "subtitle": "Costs 1 extra foot per foot",
+        "description": "Each foot of movement costs 1 extra foot of movement while crawling.",
+        "reference": "PHB, pg. 364.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Crawling is the primary way to move while you are in the Prone condition."
+            }
+        ]
+    },
+    {
+        "title": "Difficult Terrain",
+        "optional": "Standard rule",
+        "icon": "stone-pile",
+        "subtitle": "Costs 1 extra foot per foot",
+        "description": "Moving in difficult terrain costs 1 extra foot for every foot of movement.",
+        "reference": "PHB, pg. 25, 366.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This extra cost isn't cumulative; a space is either difficult terrain or it isn't."
+            }
+        ]
+    },
+    {
+        "title": "Drop Prone",
+        "optional": "Standard rule",
+        "icon": "falling",
+        "subtitle": "Cost: 0 feet of movement",
+        "description": "You can drop prone without using any of your speed. This subjects you to the Prone condition.",
+        "reference": "PHB, pgs. 25, 372.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "To move while prone, you must crawl or use magic such as teleportation."
+            }
+        ]
+    },
+    {
+        "title": "Flying",
+        "optional": "Standard rule",
+        "icon": "angel-wings",
+        "subtitle": "Move through the air",
+        "description": "If you have a fly speed, you can move through the air. You fall if you are Incapacitated, Prone, or your fly speed is reduced to 0.",
+        "reference": "PHB, pg. 367.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A creature with the Hover trait can remain aloft even under these circumstances."
+            }
+        ]
+    },
+    {
+        "title": "Grapple Move",
+        "optional": "Standard rule",
+        "icon": "grab",
+        "subtitle": "Costs 1 extra foot per foot",
+        "description": "If you move while grappling another creature, every foot of movement costs 1 extra foot.",
+        "reference": "PHB, pg. 367.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This extra cost is ignored if the grappled creature is Tiny or you are two or more sizes larger than it."
+            }
+        ]
+    },
+    {
+        "title": "High Jump",
+        "optional": "Standard rule",
+        "icon": "wingfoot",
+        "subtitle": "Leap vertically",
+        "description": "You leap into the air a number of feet equal to 3 + your Strength modifier if you move at least 10 feet on foot immediately before the jump.",
+        "reference": "PHB, pg. 368.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A standing high jump is half that distance. You can extend your arms half your height above yourself during the jump."
+            }
+        ]
+    },
+    {
+        "title": "Improvise",
+        "optional": "Standard rule",
+        "icon": "juggler",
+        "subtitle": "Perform any other movement",
+        "description": "You can attempt any other movement you can imagine. The DM determines if it is possible and what might be required.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This allows for creative stunts like swinging on a chandelier or sliding down a staircase."
+            }
+        ]
+    },
+    {
+        "title": "Long Jump",
+        "optional": "Standard rule",
+        "icon": "wingfoot",
+        "subtitle": "Leap horizontally",
+        "description": "You cover a number of feet up to your Strength score if you move at least 10 feet on foot immediately before the jump.",
+        "reference": "PHB, pg. 370.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A standing long jump is half that distance. If you land in difficult terrain, you must succeed on a DC 10 Dexterity (Acrobatics) check or be knocked Prone."
+            }
+        ]
+    },
+    {
+        "title": "Move",
+        "optional": "Standard rule",
+        "icon": "run",
+        "subtitle": "Use up to your Speed",
+        "description": "On your turn, you can move a distance up to your Speed. This can be broken up before, after, and between your actions.",
+        "reference": "PHB, pg. 24-25, 374.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The rules for movement are as follows:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You can move through the space of an ally, an Incapacitated creature, a Tiny creature, or a creature that is two sizes larger or smaller than you.",
+                    "Another creature's space is difficult terrain for you unless that creature is Tiny or your ally.",
+                    "You can't willingly end your move in a space occupied by another creature."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Your movement can be broken up by actions and bonus actions."
+            }
+        ]
+    },
+    {
+        "title": "Stand Up",
+        "optional": "Standard rule",
+        "icon": "strong",
+        "subtitle": "Cost: Half your speed",
+        "description": "Standing up from the Prone condition costs an amount of movement equal to half of your Speed.",
+        "reference": "PHB, pg. 372.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You can't stand up if you don't have enough movement left or if your speed is 0."
+            }
+        ]
+    },
+    {
+        "title": "Swim",
+        "optional": "Standard rule",
+        "icon": "at-sea",
+        "subtitle": "Costs 1 extra foot per foot",
+        "description": "Each foot of movement costs 1 extra foot of movement while swimming.",
+        "reference": "PHB, pg. 376.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "If you have a Swim Speed, you ignore this extra cost. The DM might require a Strength (Athletics) check if you are swimming in rough waters."
+            }
+        ]
+    },
+    {
+        "title": "Travel Pace",
+        "optional": "Standard rule",
+        "icon": "run",
+        "subtitle": "Movement over long distances",
+        "description": "When traveling for an hour or more, you can move at a Fast, Normal, or Slow pace.",
+        "reference": "PHB, pg. 20",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "While traveling, your party should establish a marching order. The travel pace determines the distance covered:"
+            },
+            {
+                "type": "table",
+                "headers": ["Pace", "Per Minute", "Per Hour", "Per Day (8 hrs)"],
+                "rows": [
+                    ["Fast", "400 feet", "4 miles", "30 miles"],
+                    ["Normal", "300 feet", "3 miles", "24 miles"],
+                    ["Slow", "200 feet", "2 miles", "18 miles"]
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "A Fast pace imposes Disadvantage on certain checks, while a Slow pace grants Advantage on others."
+            }
+        ]
+    }
+]

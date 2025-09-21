@@ -1,0 +1,130 @@
+[
+    {
+        "title": "Cast a Spell",
+        "optional": "Standard rule",
+        "icon": "magic-swirl",
+        "subtitle": "Use a spell with a 1-bonus-action cast time",
+        "description": "You can cast a spell with a casting time of 1 bonus action by using your bonus action for the turn.",
+        "reference": "PHB, pg. 202.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You can't cast another spell during the same turn, except for a cantrip with a casting time of 1 action."
+            }
+        ]
+    },
+    {
+        "title": "Offhand Attack",
+        "optional": "Standard rule",
+        "icon": "crossed-swords",
+        "subtitle": "Part of Two-Weapon Fighting",
+        "description": "When you take the Attack action with a light melee weapon, you can use a bonus action to attack with a different light melee weapon you're holding in your other hand.",
+        "reference": "PHB, pgs. 192, 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following rules apply to this bonus action attack:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You don't add your ability modifier to the damage of the bonus attack, unless that modifier is negative.",
+                    "If either weapon has the thrown property, you can throw the weapon, instead of making a melee attack with it."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is a common feature of dual-wielding fighting styles."
+            }
+        ]
+    },
+    {
+        "title": "Use Class Feature",
+        "optional": "Standard rule",
+        "icon": "embrassed-energy",
+        "subtitle": "Activate a feature requiring a bonus action",
+        "description": "Various class features, spells, and other abilities let you take an additional action on your turn called a bonus action.",
+        "reference": "See class page for more information.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You can take a bonus action only when a special ability, spell, or other feature of the game states that you can do something as a bonus action."
+            }
+        ]
+    },
+    {
+        "title": "Overrun*",
+        "optional": "Optional rule",
+        "icon": "shield-bash",
+        "subtitle": "Force movement through a hostile space",
+        "description": "When a creature tries to move through a hostile creature's space, the mover can try to force its way through by overrunning the hostile creature.",
+        "reference": "DMG, page 272",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "As a bonus action, the mover makes a Strength (Athletics) check contested by the hostile creature's Strength (Athletics) check.",
+                    "The mover has advantage if it is larger than the hostile creature, or disadvantage if it is smaller.",
+                    "If the mover wins the contest, it can move through the hostile creature's space once this turn."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Tumble*",
+        "optional": "Optional rule",
+        "icon": "tumble",
+        "subtitle": "Weave through a hostile space",
+        "description": "A creature can try to tumble through a hostile creature's space, ducking and weaving past the opponent.",
+        "reference": "DMG, page 272",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "As a bonus action, the tumbler makes a Dexterity (Acrobatics) check contested by the hostile creature's Dexterity (Acrobatics) check.",
+                    "If the tumbler wins the contest, it can move through the hostile creature's space once this turn."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Drink a Potion **",
+        "optional": "Homebrew rule",
+        "icon": "potion-ball",
+        "subtitle": "A common house rule",
+        "description": "This is a common homebrew rule that allows drinking a potion as a bonus action.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Standard rules require using an Action to drink a potion. This popular house rule offers an alternative:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "When using a <i>Bonus Action</i> to drink a potion, you roll for the amount of health restored, as per the potion's description.",
+                    "If you use a full <i>Action</i>, you regain the maximum possible amount of health instead of rolling."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Always confirm with your Dungeon Master if this house rule is in use."
+            }
+        ]
+    }
+]
