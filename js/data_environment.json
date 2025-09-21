@@ -1,0 +1,182 @@
+[
+    {
+        "title": "Bright Light",
+        "tag": "light",
+        "optional": "Standard rule",
+        "icon": "star-pupil",
+        "subtitle": "Normal vision",
+        "description": "Bright light lets most creatures see normally. Even on a gloomy day, most outdoor environments are in bright light.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Torches, lanterns, fires, and various spells are common sources of bright light."
+            }
+        ]
+    },
+    {
+        "title": "Darkness",
+        "tag": "light",
+        "optional": "Standard rule",
+        "icon": "worried-eyes",
+        "subtitle": "Creates heavy obscurement",
+        "description": "Darkness creates a heavily obscured area. Characters face darkness outdoors at night, within an unlit dungeon, or in an area of magical darkness.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A creature in a heavily obscured area is effectively Blinded."
+            }
+        ]
+    },
+    {
+        "title": "Dim Light",
+        "tag": "light",
+        "optional": "Standard rule",
+        "icon": "semi-closed-eye",
+        "subtitle": "Creates light obscurement",
+        "description": "Dim light, also called shadows, creates a lightly obscured area. An area of dim light is usually a boundary between bright light and darkness.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Creatures in a lightly obscured area have disadvantage on Wisdom (Perception) checks that rely on sight."
+            }
+        ]
+    },
+    {
+        "title": "Half Cover",
+        "tag": "cover",
+        "optional": "Standard rule",
+        "icon": "broken-shield",
+        "subtitle": "+2 to AC & DEX saves",
+        "description": "A target has half cover if an obstacle blocks at least half of its body, such as a low wall, large furniture, or another creature.",
+        "reference": "PHB, pg. 196.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A target with half cover has a <b>+2 bonus to AC and Dexterity saving throws</b>. If a target is behind multiple sources of cover, only the most protective degree of cover applies."
+            }
+        ]
+    },
+    {
+        "title": "Heavily Obscured",
+        "tag": "obscurance",
+        "optional": "Standard rule",
+        "icon": "lightning-tear",
+        "subtitle": "Effectively Blinded",
+        "description": "A heavily obscured area—such as darkness, opaque fog, or dense foliage—blocks vision entirely. A creature in such an area effectively suffers from the Blinded condition.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This means attack rolls against the creature have advantage, and the creature's own attack rolls have disadvantage."
+            }
+        ]
+    },
+    {
+        "title": "Lightly Obscured",
+        "tag": "obscurance",
+        "optional": "Standard rule",
+        "icon": "bleeding-eye",
+        "subtitle": "Disadvantage on Perception",
+        "description": "In a lightly obscured area, such as dim light, patchy fog, or moderate foliage, creatures have disadvantage on Wisdom (Perception) checks that rely on sight.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This penalty applies only to checks that rely on sight."
+            }
+        ]
+    },
+    {
+        "title": "Three-Quarters Cover",
+        "tag": "cover",
+        "optional": "Standard rule",
+        "icon": "cracked-shield",
+        "subtitle": "+5 to AC & DEX saves",
+        "description": "A target has three-quarters cover if about three-quarters of it is covered by an obstacle, like a portcullis or a thick tree trunk.",
+        "reference": "PHB, pg. 196.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A target with three-quarters cover has a <b>+5 bonus to AC and Dexterity saving throws</b>. If a target is behind multiple sources of cover, only the most protective degree of cover applies."
+            }
+        ]
+    },
+    {
+        "title": "Total Cover",
+        "tag": "cover",
+        "optional": "Standard rule",
+        "icon": "shield",
+        "subtitle": "Cannot be targeted directly",
+        "description": "A target has total cover if it is completely concealed by an obstacle.",
+        "reference": "PHB, pg. 196.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A target with total cover <b>can’t be targeted directly</b> by an attack or a spell, although it can be affected by spells with an area of effect."
+            }
+        ]
+    },
+    {
+        "title": "Blindsight",
+        "tag": "vision",
+        "optional": "Standard rule",
+        "icon": "one-eyed",
+        "subtitle": "Perceive without sight",
+        "description": "A creature with blindsight can perceive its surroundings without relying on sight, within a specific radius.",
+        "reference": "PHB, pg. 183.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Creatures without eyes, such as oozes, and creatures with echolocation or heightened senses, such as bats and true dragons, have this sense."
+            }
+        ]
+    },
+    {
+        "title": "Darkvision",
+        "tag": "vision",
+        "optional": "Standard rule",
+        "icon": "semi-closed-eye",
+        "subtitle": "See in darkness",
+        "description": "Many creatures in fantasy gaming worlds, especially those that dwell underground, have darkvision.",
+        "reference": "PHB, pg. 185.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Within a specified range, a creature with darkvision can see in darkness as if the darkness were dim light, so areas of darkness are only lightly obscured as far as that creature is concerned."
+            },
+            {
+                "type": "paragraph",
+                "content": "However, the creature can’t discern color in darkness, only shades of gray."
+            }
+        ]
+    },
+    {
+        "title": "Truesight",
+        "tag": "vision",
+        "optional": "Standard rule",
+        "icon": "eye-shield",
+        "subtitle": "Perceive things as they are",
+        "description": "A creature with truesight can, out to a specific range, see in normal and magical darkness, see invisible creatures, and automatically detect visual illusions.",
+        "reference": "PHB, pg. 185.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A creature with truesight also has the following benefits:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "It perceives the original form of a shapechanger or a creature that is transformed by magic.",
+                    "It can see into the Ethereal Plane."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is a rare and powerful form of sight."
+            }
+        ]
+    }
+]

@@ -1,299 +1,399 @@
-// Dynamically load the correct data files (2024 or standard) based on localStorage setting
-(function() {
-    var rules2024 = localStorage.getItem('rules2024') === 'true';
-    var head = document.getElementsByTagName('head')[0];
+"use strict";
 
-    // Helper to inject a script tag for a data file
-    function loadScript(src) {
-        var script = document.createElement('script');
-        script.src = src;
-        script.defer = false;
-        head.appendChild(script);
-    }
+/**
+ * @file Main application logic for the D&D 5e Quick Reference web application.
+ * @author Principal Code Quality Architect
+ */
 
-    // Load either the 2024 or standard data file for a given base name
-    function loadRuleFile(base) {
-        if (rules2024) {
-            loadScript('js/2024_' + base + '.js');
-        } else {
-            loadScript('js/' + base + '.js');
-        }
-    }
+// JSDoc Type Definitions for Data Structures
+/** @typedef {'paragraph' | 'list' | 'table'} BulletItemType */
+/** @typedef {{type: BulletItemType, content?: string, items?: string[], headers?: string[], rows?: string[][]}} BulletItem */
+/** @typedef {{title: string, tag?: string, subtitle?: string, description?: string, icon?: string, bullets?: BulletItem[], reference?: string, optional?: string}} RuleItem */
+/** @typedef {{showOptional: boolean, showHomebrew: boolean, darkMode: boolean, ruleset: string}} Settings */
 
-    // List of all rule data files to load
-    var ruleFiles = [
-        'data_movement',
-        'data_action',
-        'data_bonusaction',
-        'data_reaction',
-        'data_condition',
-        'data_environment',
-    ];
+((window, document) => {
+    /**
+     * @namespace QuickRefApp
+     * @description Main application object for the D&D 5e Quick Reference.
+     */
+    const QuickRefApp = {
+        config: {
+            LOCAL_STORAGE_KEYS: {
+                SELECTED_RULESET: 'selectedRuleset',
+                DARK_MODE: 'darkModeEnabled',
+                OPTIONAL_RULES: 'optionalRulesEnabled',
+                HOMEBREW_RULES: 'homebrewRulesEnabled',
+                COOKIES_ACCEPTED: 'cookiesAccepted'
+            },
+            RULESETS: { DEFAULT: 'default', Y2024: '2024' },
+            DATA_PATH: { DEFAULT: 'js/', Y2024: 'js/2024_' },
+            SECTION_CONFIG: [
+                { containerId: 'container-movement', dataKey: 'data_movement', category: 'Move' },
+                { containerId: 'container-actions', dataKey: 'data_action', category: 'Action' },
+                { containerId: 'container-bonus-actions', dataKey: 'data_bonusaction', category: 'Bonus Action' },
+                { containerId: 'container-reactions', dataKey: 'data_reaction', category: 'Reaction' },
+                { containerId: 'container-conditions', dataKey: 'data_condition', category: 'Condition' },
+                { containerId: 'container-environment-obscurance', dataKey: 'data_environment', category: 'Environment', subCategory: 'obscurance' },
+                { containerId: 'container-environment-light', dataKey: 'data_environment', category: 'Environment', subCategory: 'light' },
+                { containerId: 'container-environment-vision', dataKey: 'data_environment', category: 'Environment', subCategory: 'vision' },
+                { containerId: 'container-environment-cover', dataKey: 'data_environment', category: 'Environment', subCategory: 'cover' },
+            ],
+            RULE_TYPE: { STANDARD: "Standard rule", OPTIONAL: "Optional rule", HOMEBREW: "Homebrew rule" },
+            CSS_CLASSES: { MODAL_OPEN: 'modal-open', DARK_MODE: 'dark-mode-active', HIDDEN: 'hidden', LOADING: 'loading', LOADED: 'loaded', LAZY_ICON: 'lazy-load-icon' },
+            DEFAULT_ICON: 'perspective-dice-six-faces-one'
+        },
 
-    ruleFiles.forEach(loadRuleFile);
-})();
+        state: { settings: {} },
+        elements: {},
 
-// Create and append a quick reference item to a section
-// Sets up modal open logic for the item
-function add_quickref_item(parent, data, type) {
-    var icon = data.icon || "perspective-dice-six-faces-one";
-    var subtitle = data.subtitle || "";
-    var title = data.title || "[no title]";
-    var optional = data.optional || "Standard rule";
-    var item = document.createElement("div");
-    item.className = "item itemsize";
+        /**
+         * @namespace QuickRefApp.Renderer
+         * @description A dedicated module for all DOM element creation and manipulation.
+         */
+        Renderer: {
+            /**
+             * Renders the structured bullet data into DOM elements.
+             * @param {BulletItem[]} [bullets=[]] - The structured bullet data.
+             * @returns {DocumentFragment} A fragment containing the rendered elements.
+             */
+            renderBullets(bullets = []) {
+                const fragment = document.createDocumentFragment();
+                bullets.forEach((bullet, index) => {
+                    if (index > 0) {
+                        fragment.appendChild(document.createElement('hr'));
+                    }
+                    let element;
+                    switch (bullet.type) {
+                        case 'paragraph':
+                            element = document.createElement('p');
+                            element.innerHTML = bullet.content || '';
+                            break;
+                        case 'list':
+                            element = document.createElement('ul');
+                            (bullet.items || []).forEach(itemText => {
+                                const li = document.createElement('li');
+                                li.innerHTML = itemText;
+                                element.appendChild(li);
+                            });
+                            break;
+                        case 'table':
+                            element = document.createElement('table');
+                            const thead = element.createTHead();
+                            const headerRow = thead.insertRow();
+                            (bullet.headers || []).forEach(headerText => {
+                                const th = document.createElement('th');
+                                th.innerHTML = headerText;
+                                headerRow.appendChild(th);
+                            });
+                            const tbody = element.createTBody();
+                            (bullet.rows || []).forEach(rowData => {
+                                const row = tbody.insertRow();
+                                rowData.forEach(cellData => {
+                                    const cell = row.insertCell();
+                                    cell.innerHTML = cellData;
+                                });
+                            });
+                            break;
+                        default:
+                            console.warn(`Unknown bullet type: ${bullet.type}`);
+                            return;
+                    }
+                    fragment.appendChild(element);
+                });
+                return fragment;
+            },
 
-    var itemIcon = document.createElement("div");
-    itemIcon.className = "item-icon iconsize icon-" + icon;
-    item.appendChild(itemIcon);
+            /**
+             * Creates a DOM element for a single quick reference item.
+             * @param {RuleItem} itemData - The data for the item.
+             * @param {string} category - The category of the item.
+             * @param {Function} clickHandler - The callback function to handle clicks.
+             * @returns {HTMLDivElement} The created DOM element.
+             */
+            createQuickRefItemElement(itemData, category, clickHandler) {
+                const { icon, subtitle = "", title = "[no title]", optional } = itemData;
+                const iconName = icon || QuickRefApp.config.DEFAULT_ICON;
+    
+                const itemElement = document.createElement("div");
+                itemElement.className = "quickref-item";
+                itemElement.setAttribute("data-rule-type", optional || QuickRefApp.config.RULE_TYPE.STANDARD);
+                itemElement.tabIndex = 0;
+                itemElement.setAttribute("role", "button");
+                itemElement.setAttribute("aria-label", `${title}. ${subtitle}. Click to view details.`);
+    
+                const template = `
+                    <div class="item-icon ${QuickRefApp.config.CSS_CLASSES.LAZY_ICON}" data-icon-name="${iconName}"></div>
+                    <div class="item-text-container">
+                        <div class="item-title"></div>
+                        <div class="item-desc"></div>
+                    </div>`;
+                itemElement.innerHTML = template;
+                
+                itemElement.querySelector('.item-title').textContent = title;
+                itemElement.querySelector('.item-desc').textContent = subtitle;
+    
+                itemElement.addEventListener('click', () => clickHandler(itemElement, itemData, category));
+                itemElement.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        clickHandler(itemElement, itemData, category);
+                    }
+                });
+    
+                return itemElement;
+            }
+        },
 
-    var itemTextContainer = document.createElement("div");
-    itemTextContainer.className = "item-text-container text";
+        async init() {
+            this.cacheDOMElements();
+            this.activatePreloadedStylesheets();
+            this.loadStateFromStorage();
+            this.bindSettingListeners();
+            this.initModal();
+            this.initCookieNotice();
 
-    var itemTitle = document.createElement("div");
-    itemTitle.className = "item-title";
-    itemTitle.textContent = title;
-    itemTextContainer.appendChild(itemTitle);
+            try {
+                const ruleData = await this.loadRuleData();
+                this.populateAllSections(ruleData);
+                this.filterRuleItems();
+                this.initLazyIconObserver();
+                this.showPageContent();
+            } catch (error) {
+                console.error("Failed to initialize application:", error);
+            }
+        },
 
-    var itemDesc = document.createElement("div");
-    itemDesc.className = "item-desc";
-    itemDesc.textContent = subtitle;
-    itemTextContainer.appendChild(itemDesc);
-
-    item.appendChild(itemTextContainer);
-
-    // When the item is clicked, show the modal with the item's data
-    item.onclick = function () {
-        var section = parent.parentNode.parentNode;
-        var style = window.getComputedStyle(section);
-        var color = style.backgroundColor;
-        var borderColor = style.borderColor;
-        var darkMode = document.body.classList.contains('dark-mode-active') || document.querySelector('.dark-mode')?.classList.contains('dark-mode-active');
-        var sectionTitle = section.querySelector('.section-title');
-        var titleColor = sectionTitle ? window.getComputedStyle(sectionTitle).color : style.color;
-        show_modal(data, color, type, titleColor, borderColor, darkMode);
-    }
-    item.setAttribute("title", optional);
-    parent.appendChild(item);
-}
-
-// Show the modal dialog for a quickref item
-function show_modal(data, color, type, titleColor, borderColor, darkMode) {
-    var title = data.title || "[no title]";
-    var subtitle = data.description || data.subtitle || "";
-    var bullets = data.bullets || [];
-    var reference = data.reference || "";
-    type = type || "";
-
-    document.body.classList.add("modal-open");
-
-    var modal = document.getElementById("modal");
-    var modalBackdrop = document.getElementById("modal-backdrop");
-    var modalContainer = document.getElementById("modal-container");
-    var modalTitle = document.getElementById("modal-title");
-    var modalSubtitle = document.getElementById("modal-subtitle");
-    var modalReference = document.getElementById("modal-reference");
-    var modalBullets = document.getElementById("modal-bullets");
-
-    modal.classList.add("modal-visible");
-    modalBackdrop.style.height = window.innerHeight + "px";
-
-    // Set modal colors to match section
-    modalContainer.style.backgroundColor = color;
-    modalContainer.style.borderColor = borderColor || color;
-    modalTitle.style.color = titleColor || '';
-
-    modalTitle.innerHTML = title + "<span class=\"float-right\">" + type + "</span>";
-    modalSubtitle.textContent = subtitle;
-    modalReference.textContent = reference;
-
-    var bulletsHTML = bullets.map(function (item) {
-        return "<p class=\"fonstsize\">" + item + "</p>";
-    }).join("\n<hr>\n");
-
-    modalBullets.innerHTML = bulletsHTML;
-}
-
-// Hide the modal if the user clicks outside the modal container
-function hide_modal(event) {
-    var modalContainer = document.getElementById("modal-container");
-    if (!modalContainer.contains(event.target)) {
-        document.body.classList.remove("modal-open");
-        document.getElementById("modal").classList.remove("modal-visible");
-    }
-}
-
-// Add click event to modal for hiding
-var modal = document.getElementById("modal");
-modal.addEventListener("click", hide_modal);
-
-// Fill a section with quickref items from a data array
-function fill_section(data, parentname, type) {
-    var parent = document.getElementById(parentname);
-    data.forEach(function (item) {
-        add_quickref_item(parent, item, type);
-    });
-}
-
-// Initialize all quickref sections and apply initial filtering
-function init() {
-    fill_section(data_movement, "basic-movement", "Move");
-    fill_section(data_action, "basic-actions", "Action");
-    fill_section(data_bonusaction, "basic-bonus-actions", "Bonus action");
-    fill_section(data_reaction, "basic-reactions", "Reaction");
-    fill_section(data_condition, "basic-conditions", "Condition");
-    fill_section(data_environment_obscurance, "environment-obscurance", "Environment");
-    fill_section(data_environment_light, "environment-light", "Environment");
-    fill_section(data_environment_vision, "environment-vision", "Environment");
-    fill_section(data_environment_cover, "environment-cover", "Environment");
-
-    var modal = document.getElementById("modal");
-    modal.addEventListener("click", hide_modal);
-    // Apply initial filtering after items are created
-    if (typeof window.handleRulesToggle === 'function') {
-        window.handleRulesToggle();
-    }
-}
-
-// Wait for all data scripts to be loaded before initializing and filtering
-window.onload = function() {
-    function waitForDataAndInit() {
-        // Check if all required data variables are defined
-        if (
-            typeof data_movement !== 'undefined' &&
-            typeof data_action !== 'undefined' &&
-            typeof data_bonusaction !== 'undefined' &&
-            typeof data_reaction !== 'undefined' &&
-            typeof data_condition !== 'undefined' &&
-            typeof data_environment_obscurance !== 'undefined' &&
-            typeof data_environment_light !== 'undefined' &&
-            typeof data_environment_vision !== 'undefined' &&
-            typeof data_environment_cover !== 'undefined'
-        ) {
-            init();
-        } else {
-            // Try again in 50ms
-            setTimeout(waitForDataAndInit, 50);
-        }
-    }
-    waitForDataAndInit();
-}
-
-// DOMContentLoaded: Set up settings toggles, state, and filtering logic
-// This block runs as soon as the DOM is ready
-// Handles all settings toggles and their event listeners
-// Also defines the filtering logic for quickref items
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Ensure default values for toggles in localStorage
-    if (localStorage.getItem('optional') === null) {
-        localStorage.setItem('optional', 'false');
-    }
-    if (localStorage.getItem('homebrew') === null) {
-        localStorage.setItem('homebrew', 'false');
-    }
-
-    // Get references to all settings checkboxes
-    var optionalCheckbox = document.getElementById('optional-switch');
-    var homebrewCheckbox = document.getElementById('homebrew-switch');
-    var darkModeCheckbox = document.getElementById('darkmode-switch');
-    var rules2024Checkbox = document.getElementById('rules2024-switch');
-
-    // Set initial toggle state from localStorage
-    var rules2024 = localStorage.getItem('rules2024') === 'true';
-    rules2024Checkbox.checked = rules2024;
-
-    var darkmode = localStorage.getItem('darkmode') === 'true';
-    darkModeCheckbox.checked = darkmode;
-
-    var optional = localStorage.getItem('optional') === 'true';
-    optionalCheckbox.checked = optional;
-
-    var homebrew = localStorage.getItem('homebrew') === 'true';
-    homebrewCheckbox.checked = homebrew;
-
-    // Apply dark mode state on load
-    handleDarkModeToggle();
-
-    // Filtering logic for quickref items based on toggles
-    function handleRulesToggle() {
-        var items = document.getElementsByClassName('item itemsize');
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var ruleType = item.getAttribute('title');
-            // Only filter items that are actual quickref rules
-            if (ruleType === 'Optional rule' || ruleType === 'Homebrew rule' || ruleType === 'Standard rule') {
-                var isOptional = ruleType === 'Optional rule';
-                var isHomebrew = ruleType === 'Homebrew rule';
-                // Show item if:
-                // - It's an optional rule and the optional toggle is ON
-                // - It's a homebrew rule and the homebrew toggle is ON
-                // - It's a standard rule (always show)
-                if ((isOptional && optionalCheckbox.checked) ||
-                    (isHomebrew && homebrewCheckbox.checked) ||
-                    (!isOptional && !isHomebrew)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
+        cacheDOMElements() {
+            this.elements = {
+                body: document.body,
+                modal: document.getElementById("modal-dialog"),
+                modalBackdrop: document.getElementById("modal-backdrop"),
+                cookieNotice: document.getElementById('cookie-notice'),
+                switches: {
+                    optional: document.getElementById('optional-switch'),
+                    homebrew: document.getElementById('homebrew-switch'),
+                    darkmode: document.getElementById('darkmode-switch'),
+                    rules2024: document.getElementById('rules2024-switch')
+                },
+                modalContent: {
+                    title: document.getElementById("modal-title-text"),
+                    category: document.getElementById("modal-category"),
+                    subtitle: document.getElementById("modal-subtitle"),
+                    reference: document.getElementById("modal-reference"),
+                    bullets: document.getElementById("modal-bullets"),
+                    container: document.getElementById("modal-container")
                 }
-            } else {
-                // Always show settings toggles and other non-rule items
-                item.style.display = 'block';
+            };
+        },
+
+        activatePreloadedStylesheets() {
+            document.querySelectorAll('link[data-preload-stylesheet]').forEach(link => {
+                link.rel = 'stylesheet';
+            });
+        },
+
+        loadStateFromStorage() {
+            const cfg = this.config.LOCAL_STORAGE_KEYS;
+            this.state.settings = {
+                showOptional: this.getLocalStorageItem(cfg.OPTIONAL_RULES) === 'true',
+                showHomebrew: this.getLocalStorageItem(cfg.HOMEBREW_RULES) === 'true',
+                darkMode: this.getLocalStorageItem(cfg.DARK_MODE) === 'true',
+                ruleset: this.getLocalStorageItem(cfg.SELECTED_RULESET) || this.config.RULESETS.DEFAULT
+            };
+
+            this.elements.switches.optional.checked = this.state.settings.showOptional;
+            this.elements.switches.homebrew.checked = this.state.settings.showHomebrew;
+            this.elements.switches.darkmode.checked = this.state.settings.darkMode;
+            this.elements.switches.rules2024.checked = this.state.settings.ruleset === this.config.RULESETS.Y2024;
+            this.toggleDarkMode(this.state.settings.darkMode, false);
+        },
+
+        async loadRuleData() {
+            const rulesetPath = this.state.settings.ruleset === this.config.RULESETS.Y2024
+                ? this.config.DATA_PATH.Y2024
+                : this.config.DATA_PATH.DEFAULT;
+
+            const uniqueDataKeys = [...new Set(this.config.SECTION_CONFIG.map(s => s.dataKey))];
+
+            const fetchPromises = uniqueDataKeys.map(key => {
+                const url = `${rulesetPath}${key}.json`;
+                return fetch(url)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${url}`);
+                        return response.json();
+                    })
+                    .then(data => ({ key, data, status: 'fulfilled' }))
+                    .catch(error => ({ key, reason: error, status: 'rejected' }));
+            });
+
+            const results = await Promise.all(fetchPromises);
+            
+            const loadedData = {};
+            results.forEach(result => {
+                if (result.status === 'fulfilled') {
+                    loadedData[result.key] = result.data;
+                } else {
+                    console.error(`Failed to load data for "${result.key}":`, result.reason);
+                }
+            });
+            
+            if (Object.keys(loadedData).length === 0) {
+                throw new Error("All data files failed to load.");
             }
-        }
-    }
-    // Expose filtering function globally so init() can call it
-    window.handleRulesToggle = handleRulesToggle;
 
-    // Event listeners for toggles: update localStorage and re-filter on change
-    optionalCheckbox.addEventListener('change', function() {
-        localStorage.setItem('optional', optionalCheckbox.checked ? 'true' : 'false');
-        handleRulesToggle();
-    });
-    homebrewCheckbox.addEventListener('change', function() {
-        localStorage.setItem('homebrew', homebrewCheckbox.checked ? 'true' : 'false');
-        handleRulesToggle();
-    });
-    darkModeCheckbox.addEventListener('change', function() {
-        localStorage.setItem('darkmode', darkModeCheckbox.checked ? 'true' : 'false');
-        handleDarkModeToggle();
-    });
-    rules2024Checkbox.addEventListener('change', handle2024RulesToggle);
+            return loadedData;
+        },
 
-    // Toggle dark mode classes on the page
-    function handleDarkModeToggle() {
-        const darkModeElements = document.querySelectorAll('.dark-mode, .page-background');
-        darkModeElements.forEach(element => {
-            if (darkModeCheckbox.checked) {
-                element.classList.add('dark-mode-active');
-            } else {
-                element.classList.remove('dark-mode-active');
+        populateAllSections(ruleData) {
+            this.config.SECTION_CONFIG.forEach(section => {
+                const sourceData = ruleData[section.dataKey];
+                if (!sourceData) return;
+                const dataForSection = section.subCategory ? sourceData.filter(item => item.tag === section.subCategory) : sourceData;
+                this.populateSection(section.containerId, dataForSection, section.category);
+            });
+        },
+
+        populateSection(containerId, items, category) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const fragment = document.createDocumentFragment();
+            const clickHandler = (el, data, cat) => this.handleItemClick(el, data, cat);
+            items.forEach(item => {
+                const itemElement = this.Renderer.createQuickRefItemElement(item, category, clickHandler);
+                fragment.appendChild(itemElement);
+            });
+            container.replaceChildren(fragment);
+        },
+        
+        bindSettingListeners() {
+            const { switches } = this.elements;
+            switches.optional.addEventListener('change', () => this.filterRuleItems());
+            switches.homebrew.addEventListener('change', () => this.filterRuleItems());
+            switches.darkmode.addEventListener('change', e => this.toggleDarkMode(e.target.checked, true));
+            switches.rules2024.addEventListener('change', event => {
+                const newRuleset = event.target.checked ? this.config.RULESETS.Y2024 : this.config.RULESETS.DEFAULT;
+                this.setLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.SELECTED_RULESET, newRuleset);
+                location.reload();
+            });
+        },
+
+        handleItemClick(itemElement, itemData, category) {
+            const section = itemElement.closest('.section-container');
+            if (!section) return;
+            const color = window.getComputedStyle(section).getPropertyValue('--section-color');
+            this.showModal(itemData, category, color);
+        },
+
+        showPageContent() {
+            this.elements.body.classList.remove(this.config.CSS_CLASSES.LOADING);
+            this.elements.body.classList.add(this.config.CSS_CLASSES.LOADED);
+        },
+
+        toggleDarkMode(isEnabled, saveSetting) {
+            if (saveSetting) {
+                this.setLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.DARK_MODE, isEnabled);
             }
-        });
-        localStorage.setItem('darkmode', darkModeCheckbox.checked ? 'true' : 'false');
-    }
+            this.elements.body.classList.toggle(this.config.CSS_CLASSES.DARK_MODE, isEnabled);
+        },
 
-    // Handle switching between 2024 and standard rules
-    function handle2024RulesToggle() {
-        localStorage.setItem('rules2024', rules2024Checkbox.checked ? 'true' : 'false');
-        location.reload();
-    }
+        initModal() {
+            const { modal, modalBackdrop } = this.elements;
+            if (!modal || !modalBackdrop) return;
+            const dismissModal = () => this.hideModal();
+            modal.addEventListener("click", event => {
+                if (event.target === modal || event.target === modalBackdrop) dismissModal();
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && this.elements.body.classList.contains(this.config.CSS_CLASSES.MODAL_OPEN)) dismissModal();
+            });
+        },
+        
+        showModal(itemData, category, color) {
+            const { modal, modalContent, body } = this.elements;
+            if (!modal) return;
+            modalContent.title.textContent = itemData.title || "[no title]";
+            modalContent.category.textContent = category || "";
+            modalContent.subtitle.textContent = itemData.description || itemData.subtitle || "";
+            modalContent.reference.textContent = itemData.reference || "";
+            modalContent.bullets.replaceChildren(this.Renderer.renderBullets(itemData.bullets));
+            modalContent.container.style.borderColor = color;
+            modalContent.container.querySelector('.section-title').style.backgroundColor = color;
+            body.classList.add(this.config.CSS_CLASSES.MODAL_OPEN);
+            modal.setAttribute('aria-hidden', 'false');
+            modalContent.title.focus();
+        },
 
-    // Set up click handlers for the settings toggle items (for better UX)
-    var optionalToggleItem = document.getElementById('optional-toggle-item');
-    var homebrewToggleItem = document.getElementById('homebrew-toggle-item');
-    var darkModeToggleItem = document.getElementById('darkmode-toggle-item');
-    var rules2024ToggleItem = document.getElementById('2024rules-toggle-item');
+        hideModal() {
+            const { modal, body } = this.elements;
+            if (!modal) return;
+            body.classList.remove(this.config.CSS_CLASSES.MODAL_OPEN);
+            modal.setAttribute('aria-hidden', 'true');
+        },
 
-    function handleToggleClick(checkbox) {
-        return function() {
-            checkbox.checked = !checkbox.checked;
-            checkbox.dispatchEvent(new Event('change'));
-        };
-    }
+        filterRuleItems() {
+            const showOptional = this.elements.switches.optional.checked;
+            this.setLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.OPTIONAL_RULES, showOptional);
+            const showHomebrew = this.elements.switches.homebrew.checked;
+            this.setLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.HOMEBREW_RULES, showHomebrew);
+            document.querySelectorAll('.quickref-item').forEach(item => {
+                const ruleType = item.getAttribute('data-rule-type');
+                const isVisible = !(
+                    (ruleType === this.config.RULE_TYPE.OPTIONAL && !showOptional) ||
+                    (ruleType === this.config.RULE_TYPE.HOMEBREW && !showHomebrew)
+                );
+                item.classList.toggle(this.config.CSS_CLASSES.HIDDEN, !isVisible);
+            });
+        },
 
-    optionalToggleItem.addEventListener('click', handleToggleClick(optionalCheckbox));
-    homebrewToggleItem.addEventListener('click', handleToggleClick(homebrewCheckbox));
-    darkModeToggleItem.addEventListener('click', handleToggleClick(darkModeCheckbox));
-    rules2024ToggleItem.addEventListener('click', handleToggleClick(rules2024Checkbox));
-});
+        initLazyIconObserver() {
+            const lazyIcons = document.querySelectorAll(`.${this.config.CSS_CLASSES.LAZY_ICON}`);
+            if (!('IntersectionObserver' in window)) {
+                lazyIcons.forEach(icon => this.loadIcon(icon));
+                return;
+            }
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.loadIcon(entry.target);
+                        observerInstance.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px 150px 0px' });
+            lazyIcons.forEach(icon => observer.observe(icon));
+        },
+
+        loadIcon(iconElement) {
+            const iconName = iconElement.getAttribute('data-icon-name');
+            if (iconName) {
+                iconElement.classList.add(`icon-${iconName}`);
+                iconElement.classList.remove(this.config.CSS_CLASSES.LAZY_ICON);
+            }
+        },
+
+        initCookieNotice() {
+            const { cookieNotice } = this.elements;
+            const acceptButton = document.getElementById('accept-cookies-button');
+            if (!cookieNotice || !acceptButton) return;
+            if (this.getLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.COOKIES_ACCEPTED) === 'true') {
+                cookieNotice.style.display = 'none';
+            }
+            acceptButton.addEventListener('click', () => {
+                this.setLocalStorageItem(this.config.LOCAL_STORAGE_KEYS.COOKIES_ACCEPTED, 'true');
+                cookieNotice.style.display = 'none';
+            });
+        },
+        
+        getLocalStorageItem(key) {
+            try { return window.localStorage.getItem(key); }
+            catch (error) { console.warn("Could not access localStorage:", error); return null; }
+        },
+
+        setLocalStorageItem(key, value) {
+            try { window.localStorage.setItem(key, value); }
+            catch (error) { console.warn("Could not access localStorage:", error); }
+        },
+    };
+
+    document.addEventListener("DOMContentLoaded", () => QuickRefApp.init());
+
+})(window, document);

@@ -1,0 +1,195 @@
+[
+    {
+        "title": "Climb",
+        "optional": "Standard rule",
+        "icon": "crags",
+        "subtitle": "Cost: 1 extra ft per ft",
+        "description": "While climbing, each foot of movement costs 1 extra foot. This is doubled in difficult terrain.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The DM might require a Strength (Athletics) check for a particularly difficult or sheer surface."
+            }
+        ]
+    },
+    {
+        "title": "Crawl",
+        "optional": "Standard rule",
+        "icon": "crawl",
+        "subtitle": "Cost: 1 extra ft per ft",
+        "description": "While prone, you can crawl. Each foot of movement while crawling costs 1 extra foot.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Crawling is the primary way to move while you are in the Prone condition."
+            }
+        ]
+    },
+    {
+        "title": "Difficult Terrain",
+        "optional": "Standard rule",
+        "icon": "stone-pile",
+        "subtitle": "Cost: 1 extra ft per ft",
+        "description": "Moving through difficult terrain costs 1 extra foot for every foot of movement.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Examples include dense forests, deep swamps, rubble, or steep stairs."
+            }
+        ]
+    },
+    {
+        "title": "Drop Prone",
+        "optional": "Standard rule",
+        "icon": "lob-arrow",
+        "subtitle": "Cost: 0 movement",
+        "description": "You can drop prone without using any of your speed. This subjects you to the Prone condition.",
+        "reference": "PHB, pgs. 190-191.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You cannot be knocked prone again while you are already prone."
+            }
+        ]
+    },
+    {
+        "title": "Grapple Move",
+        "optional": "Standard rule",
+        "icon": "grab",
+        "subtitle": "Move at half speed",
+        "description": "When you move, you can drag or carry a creature you are grappling, but your speed is halved, unless the creature is two or more sizes smaller than you.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This allows you to reposition a grappled foe on the battlefield."
+            }
+        ]
+    },
+    {
+        "title": "High Jump",
+        "optional": "Standard rule",
+        "icon": "wingfoot",
+        "subtitle": "Leap vertically",
+        "description": "A high jump allows you to leap into the air. After a 10-foot run-up, you can jump a number of feet equal to 3 + your Strength modifier.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A standing high jump is half that distance. In either case, each foot you clear costs a foot of movement."
+            }
+        ]
+    },
+    {
+        "title": "Improvise",
+        "optional": "Standard rule",
+        "icon": "juggler",
+        "subtitle": "Perform an unlisted stunt",
+        "description": "You can attempt any other kind of movement you can imagine, such as swinging from a chandelier.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The DM tells you whether it is possible and what kind of roll, if any, you need to make."
+            }
+        ]
+    },
+    {
+        "title": "Long Jump",
+        "optional": "Standard rule",
+        "icon": "wingfoot",
+        "subtitle": "Leap across a distance",
+        "description": "A long jump allows you to leap across a distance. After a 10-foot run-up, you can cover a number of feet up to your Strength score.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A standing long jump is half that distance. In either case, each foot you clear costs a foot of movement."
+            }
+        ]
+    },
+    {
+        "title": "Mount/Dismount",
+        "optional": "Standard rule",
+        "icon": "horse-head",
+        "subtitle": "Cost: Half your speed",
+        "description": "Once during your move, you can mount or dismount a creature that is within 5 feet of you.",
+        "reference": "PHB, pg. 198.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This costs an amount of movement equal to half your speed. The following rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "If an effect moves your mount against its will, you must succeed on a DC 10 Dexterity save or fall off, landing prone.",
+                    "If your mount is knocked prone, you can use your reaction to dismount and land on your feet. Otherwise, you are dismounted and fall prone."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This rule applies to any creature that can serve as a mount."
+            }
+        ]
+    },
+    {
+        "title": "Move",
+        "optional": "Standard rule",
+        "icon": "run",
+        "subtitle": "Use your speed to move",
+        "description": "On your turn, you can move a distance up to your speed. You can use as much or as little of your speed as you like on your turn.",
+        "reference": "PHB, pg. 190.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The rules for movement are as follows:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You can switch between different speeds (e.g., walking and flying) during your move.",
+                    "You can move through a nonhostile creature's space.",
+                    "You can move through a hostile creature's space only if it is at least two sizes larger or smaller than you.",
+                    "Another creature's space is difficult terrain for you.",
+                    "You can't willingly end your move in another creature's space."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Your movement can be broken up by actions and bonus actions."
+            }
+        ]
+    },
+    {
+        "title": "Stand Up",
+        "optional": "Standard rule",
+        "icon": "strong",
+        "subtitle": "Cost: Half your speed",
+        "description": "You can stand up from being prone by using an amount of movement equal to half your speed.",
+        "reference": "PHB, pgs. 190-191.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You cannot stand up if you don't have enough movement or if your speed is 0."
+            }
+        ]
+    },
+    {
+        "title": "Swim",
+        "optional": "Standard rule",
+        "icon": "at-sea",
+        "subtitle": "Cost: 1 extra ft per ft",
+        "description": "While swimming, each foot of movement costs 1 extra foot. This is doubled in difficult terrain.",
+        "reference": "PHB, pg. 182.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The DM might require a Strength (Athletics) check if you are swimming in rough water."
+            }
+        ]
+    }
+]

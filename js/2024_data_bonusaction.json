@@ -1,0 +1,55 @@
+[
+    {
+        "title": "Cast a Spell",
+        "optional": "Standard rule",
+        "icon": "magic-swirl",
+        "subtitle": "Use a spell with a 1-bonus-action cast time",
+        "description": "Cast a spell that has a casting time of 1 Bonus Action. This is typically a swift spell.",
+        "reference": "PHB, pgs. 235-238, 363.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "<b>Crucial Rule:</b> On a turn, you can expend only one spell slot to cast a spell. You can't, for example, cast a spell with a spell slot as your action and another one using your bonus action on the same turn."
+            }
+        ]
+    },
+    {
+        "title": "Offhand Attack",
+        "optional": "Standard rule",
+        "icon": "crossed-swords",
+        "subtitle": "Part of Two-Weapon Fighting",
+        "description": "If you take the Attack action and attack with a Light weapon, you can use a Bonus Action to make one attack with a different Light weapon.",
+        "reference": "PHB, pgs. 213.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following rules apply to this bonus action attack:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "This is only usable if you take the <i>Attack</i> action and attack with a light weapon.",
+                    "You don't add your ability modifier to the damage of the bonus attack, unless that modifier is negative."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is a common feature of dual-wielding fighting styles."
+            }
+        ]
+    },
+    {
+        "title": "Use Class Feature",
+        "optional": "Standard rule",
+        "icon": "embrassed-energy",
+        "subtitle": "Activate a feature requiring a bonus action",
+        "description": "Many class and racial features allow you to take a Bonus Action to activate a special ability.",
+        "reference": "See class page for more information.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You can take a bonus action only when a special ability, spell, or other feature of the game states that you can do something as a bonus action."
+            }
+        ]
+    }
+]

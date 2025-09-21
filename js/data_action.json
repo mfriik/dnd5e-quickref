@@ -1,0 +1,486 @@
+[
+    {
+        "title": "Attack",
+        "optional": "Standard rule",
+        "icon": "crossed-swords",
+        "subtitle": "Perform a melee or ranged attack",
+        "description": "The most common action to take in combat is the Attack action. With this action, you make one melee or ranged attack.",
+        "reference": "PHB, pgs. 192, 194-195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following rules apply to the Attack action:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Certain features, such as <i>Extra Attack</i>, allow you to make more than one attack with this action. You may move between these attacks.",
+                    "When you attack with a light melee weapon, you can use a bonus action to attack with your other hand (see Two-Weapon Fighting).",
+                    "You may replace one of your melee attacks with a special attempt to <i>Grapple</i> or a <i>Shove</i> a creature."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Your attack roll may be affected by Advantage or Disadvantage from various conditions."
+            }
+        ]
+    },
+    {
+        "title": "Cast a Spell",
+        "optional": "Standard rule",
+        "icon": "magic-swirl",
+        "subtitle": "Use a spell with a 1-action cast time",
+        "description": "Spellcasters can use their action to cast a spell with a casting time of 1 action.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "When casting a spell, keep these rules in mind:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You can't cast a spell with your action and another spell with your bonus action in the same turn, unless the action is used to cast a cantrip.",
+                    "The target must be within the spell's range and not behind total cover.",
+                    "If a spell requires concentration, you lose concentration if you cast another spell that requires it, become incapacitated, or fail a Constitution saving throw after taking damage."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Material components are not consumed unless the spell's description says otherwise."
+            }
+        ]
+    },
+    {
+        "title": "Dash",
+        "optional": "Standard rule",
+        "icon": "sprint",
+        "subtitle": "Gain extra movement",
+        "description": "When you take the Dash action, you gain extra movement for the current turn equal to your speed, after applying any modifiers.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "For example, if your speed is 30 feet, you can move up to 60 feet on your turn if you use the Dash action."
+            }
+        ]
+    },
+    {
+        "title": "Disengage",
+        "optional": "Standard rule",
+        "icon": "journey",
+        "subtitle": "Avoid opportunity attacks",
+        "description": "If you take the Disengage action, your movement doesn't provoke opportunity attacks for the rest of the turn.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This action is useful for safely moving out of an enemy's reach without being attacked."
+            }
+        ]
+    },
+    {
+        "title": "Dodge",
+        "optional": "Standard rule",
+        "icon": "aura",
+        "subtitle": "Focus on avoiding attacks",
+        "description": "When you take the Dodge action, you focus entirely on avoiding attacks, granting you defensive benefits.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Until the start of your next turn, you gain the following benefits:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Any attack roll made against you has disadvantage if you can see the attacker.",
+                    "You make Dexterity saving throws with advantage."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "You lose this benefit if you are Incapacitated or if your speed drops to 0."
+            }
+        ]
+    },
+    {
+        "title": "Escape",
+        "optional": "Standard rule",
+        "icon": "manacles",
+        "subtitle": "Attempt to escape a grapple",
+        "description": "A grappled creature can use its action to escape. To do so, it must succeed on a Strength (Athletics) or Dexterity (Acrobatics) check.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Your check is contested by the grappler's Strength (Athletics) check. Escaping other restraints may require a different check, as specified by the effect."
+            }
+        ]
+    },
+    {
+        "title": "Grapple",
+        "optional": "Standard rule",
+        "icon": "grab",
+        "subtitle": "Special melee attack to seize a foe",
+        "description": "As a special melee attack, you can attempt to grab a creature and subject it to the Grappled condition.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "When you want to grab a creature or wrestle with it, you can use the Attack action to make a special melee attack. The following rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The target must be no more than one size larger than you and within your reach.",
+                    "Using at least one free hand, you make a Strength (Athletics) check contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check.",
+                    "If you succeed, the target gains the Grappled condition (its speed becomes 0)."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This attempt replaces one of your attacks if you have the Extra Attack feature."
+            }
+        ]
+    },
+    {
+        "title": "Help",
+        "optional": "Standard rule",
+        "icon": "telepathy",
+        "subtitle": "Aid another creature",
+        "description": "You can use your action to help another creature, granting it advantage on a check or against an enemy.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "You can help in one of two ways:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The target gains advantage on the next ability check it makes to perform a task you are helping with.",
+                    "The target gains advantage on its next attack roll against a creature within 5 feet of you."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "The advantage lasts until the start of your next turn."
+            }
+        ]
+    },
+    {
+        "title": "Hide",
+        "optional": "Standard rule",
+        "icon": "hood",
+        "subtitle": "Attempt to become unseen",
+        "description": "When you take the Hide action, you make a Dexterity (Stealth) check in an attempt to hide.",
+        "reference": "PHB, pg. 192.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following rules apply to hiding:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You can't hide from a creature that can see you clearly.",
+                    "Your check is contested by the Wisdom (Perception) check of any creature actively searching for you.",
+                    "A creature that isn't searching notices you if your check is lower than its Passive Perception."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "If you make noise or are no longer obscured, you give away your position."
+            }
+        ]
+    },
+    {
+        "title": "Improvise",
+        "optional": "Standard rule",
+        "icon": "juggler",
+        "subtitle": "Perform an unlisted action",
+        "description": "You can describe an action not detailed elsewhere. The DM tells you whether it is possible and what kind of roll, if any, you need to make.",
+        "reference": "PHB, pg. 193.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This allows for creative problem-solving beyond the standard list of actions."
+            }
+        ]
+    },
+    {
+        "title": "Ready",
+        "optional": "Standard rule",
+        "icon": "stopwatch",
+        "subtitle": "Prepare an action for a trigger",
+        "description": "You can take the Ready action on your turn, which lets you act using your reaction before the start of your next turn.",
+        "reference": "PHB, pg. 193.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "To do so, you decide on two things:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "A perceivable circumstance that will act as a trigger.",
+                    "The action you will take in response to that trigger (or you can choose to move up to your speed instead)."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "When the trigger occurs, you can either take your reaction or ignore the trigger."
+            }
+        ]
+    },
+    {
+        "title": "Search",
+        "optional": "Standard rule",
+        "icon": "magnifying-glass",
+        "subtitle": "Look for something",
+        "description": "When you take the Search action, you devote your attention to finding something. The DM might require a Wisdom (Perception) or Intelligence (Investigation) check.",
+        "reference": "PHB, pg. 193.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This is useful for finding hidden objects, secret doors, or other details in your environment."
+            }
+        ]
+    },
+    {
+        "title": "Shove",
+        "optional": "Standard rule",
+        "icon": "hand",
+        "subtitle": "Special melee attack to push a foe",
+        "description": "As a special melee attack, you can shove a creature to knock it prone or push it away from you.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Using the Attack action, you can make a special melee attack to shove a creature. The following rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The target must be no more than one size larger than you and within your reach.",
+                    "You make a Strength (Athletics) check contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check.",
+                    "If you win the contest, you either knock the target prone or push it 5 feet away from you."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This attempt replaces one of your attacks if you have the Extra Attack feature."
+            }
+        ]
+    },
+    {
+        "title": "Stabilize a Creature",
+        "optional": "Standard rule",
+        "icon": "first-aid",
+        "subtitle": "Aid a dying companion",
+        "description": "You can use your action to stabilize a creature that has 0 hit points. On a success, the creature is no longer dying.",
+        "reference": "PHB, pg. 197.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This requires a successful DC 10 Wisdom (Medicine) check. A stable creature regains 1 hit point after 1d4 hours."
+            }
+        ]
+    },
+    {
+        "title": "Use Class Feature",
+        "optional": "Standard rule",
+        "icon": "embrassed-energy",
+        "subtitle": "Activate a feature requiring an action",
+        "description": "Many racial traits and class features provide special options for your action.",
+        "reference": "See class page for more information.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Check your character sheet for any features that specify they require an action to use."
+            }
+        ]
+    },
+    {
+        "title": "Use Object",
+        "optional": "Standard rule",
+        "icon": "snatch",
+        "subtitle": "Interact with an object",
+        "description": "You can interact with one object for free on your turn. If you want to interact with a second object, you must use this action.",
+        "reference": "PHB, pg. 193.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This is also the action you take when an object, such as a magical item, requires an action for its use."
+            }
+        ]
+    },
+    {
+        "title": "Use Shield",
+        "optional": "Standard rule",
+        "icon": "round-shield",
+        "subtitle": "Don or doff a shield",
+        "description": "A shield takes one action to equip (don) or unequip (doff).",
+        "reference": "PHB, pgs. 144-146.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "In contrast, armor takes several minutes to don or doff."
+            }
+        ]
+    },
+    {
+        "title": "Climb onto a Bigger Creature*",
+        "optional": "Optional rule",
+        "icon": "mountain-climbing",
+        "subtitle": "Scale a larger creature",
+        "description": "A suitably large opponent can be treated as terrain for the purpose of jumping onto its back or clinging to a limb.",
+        "reference": "DMG, page 271",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The smaller creature uses its action to make a Strength (Athletics) or Dexterity (Acrobatics) check contested by the target's Dexterity (Acrobatics) check.",
+                    "If it wins, the smaller creature moves into the target's space and has advantage on attack rolls against it."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Disarm*",
+        "optional": "Optional rule",
+        "icon": "sword-break",
+        "subtitle": "Knock an item from a target's grasp",
+        "description": "A creature can use a weapon attack to knock a weapon or another item from a target's grasp.",
+        "reference": "DMG, page 271",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The attacker makes an attack roll contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check.",
+                    "If the attacker wins, the attack causes no damage, but the defender drops the item.",
+                    "The attacker has disadvantage on its attack roll if the target is holding the item with two or more hands."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Mark*",
+        "optional": "Optional rule",
+        "icon": "cross-mark",
+        "subtitle": "Focus on a target for opportunity attacks",
+        "description": "This optional rule makes it easier for melee combatants to harry each other with opportunity attacks.",
+        "reference": "DMG, page 271",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "When you make a melee attack, you can also mark your target. The following rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Until the end of your next turn, any opportunity attack you make against the marked target has advantage.",
+                    "The opportunity attack doesn't expend your reaction, but you can't make the attack if anything is preventing you from taking reactions.",
+                    "You are limited to one such opportunity attack per turn."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Overrun*",
+        "optional": "Optional rule",
+        "icon": "shield-bash",
+        "subtitle": "Force movement through a hostile space",
+        "description": "When a creature tries to move through a hostile creature's space, the mover can try to force its way through by overrunning the hostile creature.",
+        "reference": "DMG, page 272",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "As an action, the mover makes a Strength (Athletics) check contested by the hostile creature's Strength (Athletics) check.",
+                    "The mover has advantage on this check if it is larger than the hostile creature, or disadvantage if it is smaller.",
+                    "If the mover wins the contest, it can move through the hostile creature's space once this turn."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Shove Aside*",
+        "optional": "Optional rule",
+        "icon": "hand",
+        "subtitle": "Push a creature to the side",
+        "description": "This optional rule allows a creature to use the special shove attack to force a target to an adjacent space.",
+        "reference": "DMG, page 272",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The attacker has disadvantage on its Strength (Athletics) check when it does so.",
+                    "If that check is successful, the attacker moves the target 5 feet to a different space within its reach."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    },
+    {
+        "title": "Tumble*",
+        "optional": "Optional rule",
+        "icon": "tumble",
+        "subtitle": "Weave through a hostile space",
+        "description": "A creature can try to tumble through a hostile creature's space, ducking and weaving past the opponent.",
+        "reference": "DMG, page 272",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following optional rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "As an action, the tumbler makes a Dexterity (Acrobatics) check contested by the hostile creature's Dexterity (Acrobatics) check.",
+                    "If the tumbler wins the contest, it can move through the hostile creature's space once this turn."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is an optional rule from the Dungeon Master's Guide."
+            }
+        ]
+    }
+]

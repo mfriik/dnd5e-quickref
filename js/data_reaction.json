@@ -1,0 +1,82 @@
+[
+    {
+        "title": "Cast a Spell",
+        "optional": "Standard rule",
+        "icon": "magic-swirl",
+        "subtitle": "Use a spell with a 1-reaction cast time",
+        "description": "Some spells can be cast as reactions, interrupting the normal flow of turns in response to an event.",
+        "reference": "PHB, pg. 202.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The trigger is specified by the spell itself (e.g., casting <i>Shield</i> when you are hit by an attack)."
+            }
+        ]
+    },
+    {
+        "title": "Opportunity Attack",
+        "optional": "Standard rule",
+        "icon": "crossed-swords",
+        "subtitle": "Attack a foe that leaves your reach",
+        "description": "You can make an opportunity attack when a hostile creature that you can see moves out of your reach.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The following rules apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You use your reaction to make one melee attack against the provoking creature.",
+                    "The attack occurs right before the creature leaves your reach.",
+                    "You don't provoke an opportunity attack when you teleport or when someone or something moves you without using your movement, action, or reaction."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is one of the most common reactions in combat."
+            }
+        ]
+    },
+    {
+        "title": "Readied Action",
+        "optional": "Standard rule",
+        "icon": "stopwatch",
+        "subtitle": "Act on your chosen trigger",
+        "description": "If you have readied an action, you can use your reaction to act on the specified trigger.",
+        "reference": "PHB, pg. 193.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The trigger is the perceivable circumstance you chose as part of your <i>Ready</i> action."
+            }
+        ]
+    },
+    {
+        "title": "Grapple **",
+        "optional": "Homebrew rule",
+        "icon": "grab",
+        "subtitle": "Special opportunity attack",
+        "description": "A homebrew rule allowing a grapple check to be made in place of an opportunity attack.",
+        "reference": "PHB, pg. 195.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This house rule allows you to use your reaction to grapple a creature leaving your reach. The normal rules for grappling apply:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "The target must be no more than one size larger than you.",
+                    "You make a Strength (Athletics) check contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check.",
+                    "If you succeed, the target gains the Grappled condition and its speed becomes 0, stopping its movement."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Always confirm with your Dungeon Master if this house rule is in use."
+            }
+        ]
+    }
+]

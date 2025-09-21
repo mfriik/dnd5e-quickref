@@ -1,0 +1,371 @@
+[
+    {
+        "title": "Blinded",
+        "optional": "Standard rule",
+        "icon": "one-eyed",
+        "subtitle": "You can't see",
+        "description": "You can't see and automatically fail any ability check that requires sight.",
+        "reference": "PHB, pg. 361.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A blinded creature suffers from the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You have Disadvantage on attack rolls.",
+                    "Attack rolls against you have Advantage."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "These effects apply to any creature that relies on sight."
+            }
+        ]
+    },
+    {
+        "title": "Charmed",
+        "optional": "Standard rule",
+        "icon": "smitten",
+        "subtitle": "You are influenced by another",
+        "description": "You can't attack the charmer or target them with abilities that cause damage or a harmful condition.",
+        "reference": "PHB, pg. 363.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "In addition, the charmer has Advantage on ability checks to interact socially with you."
+            }
+        ]
+    },
+    {
+        "title": "Deafened",
+        "optional": "Standard rule",
+        "icon": "elf-ear",
+        "subtitle": "You can't hear",
+        "description": "You can't hear and automatically fail any ability check that requires hearing.",
+        "reference": "PHB, pg. 365.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "This condition can be caused by magical effects like the <i>Silence</i> spell or by loud noises like a thunderclap."
+            }
+        ]
+    },
+    {
+        "title": "Dying",
+        "optional": "Standard rule",
+        "icon": "dead-head",
+        "subtitle": "You are at 0 HP and near death",
+        "description": "When you start your turn with 0 Hit Points, you must make a Death Saving Throw.",
+        "reference": "PHB, pg. 197.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "At the start of each of your turns while dying, you make a death saving throw. The rules are:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Roll a d20. On a 10 or higher, you succeed. Otherwise, you fail.",
+                    "On your third success, you become Stable.",
+                    "On your third failure, you die.",
+                    "Rolling a 1 counts as two failures. Rolling a 20 lets you regain 1 HP.",
+                    "Taking damage while dying causes one failure (two if from a critical hit)."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "A stable creature is still Unconscious but no longer dying. It regains 1 HP after 1d4 hours."
+            }
+        ]
+    },
+    {
+        "title": "Exhaustion",
+        "optional": "Standard rule",
+        "icon": "crawl",
+        "subtitle": "You are physically drained",
+        "description": "Exhaustion is measured in levels. Each level imparts a cumulative penalty to your d20 Tests and your Speed.",
+        "reference": "PHB, pg. 366.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The levels of exhaustion have the following cumulative effects:"
+            },
+            {
+                "type": "table",
+                "headers": ["Level", "d20 Penalty", "Speed Penalty"],
+                "rows": [
+                    ["1", "-2", "-5 ft."],
+                    ["2", "-4", "-10 ft."],
+                    ["3", "-6", "-15 ft."],
+                    ["4", "-8", "-20 ft."],
+                    ["5", "-10", "-25 ft."],
+                    ["6", "Death", "Death"]
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Finishing a Long Rest reduces your Exhaustion level by 1. When your Exhaustion level reaches 0, the condition ends."
+            }
+        ]
+    },
+    {
+        "title": "Frightened",
+        "optional": "Standard rule",
+        "icon": "sharp-smile",
+        "subtitle": "You are afraid",
+        "description": "You have Disadvantage on d20 Tests while the source of your fear is within your line of sight.",
+        "reference": "PHB, pg. 367.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "In addition, you can't willingly move closer to the source of your fear."
+            }
+        ]
+    },
+    {
+        "title": "Grappled",
+        "optional": "Standard rule",
+        "icon": "grab",
+        "subtitle": "You are held by another",
+        "description": "While Grappled, your Speed is 0 and cannot be increased.",
+        "reference": "PHB, pg. 367.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "A grappled creature is affected in the following ways:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You have Disadvantage on attack rolls against any target other than the grappler.",
+                    "The grappler can drag or carry you when it moves, but its movement is slowed unless you are significantly smaller."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "The condition ends if you escape, the grappler is Incapacitated, or you are moved out of the grappler's reach."
+            }
+        ]
+    },
+    {
+        "title": "Incapacitated",
+        "optional": "Standard rule",
+        "icon": "internal-injury",
+        "subtitle": "You are unable to act",
+        "description": "While Incapacitated, you cannot take any action, bonus action, or reaction.",
+        "reference": "PHB, pg. 369.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "In addition to being unable to act, you are affected in the following ways:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Your Concentration is broken.",
+                    "You can't speak.",
+                    "You have Disadvantage on Initiative rolls."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Many other conditions also apply the Incapacitated condition."
+            }
+        ]
+    },
+    {
+        "title": "Invisible",
+        "optional": "Standard rule",
+        "icon": "invisible",
+        "subtitle": "You can't be seen",
+        "description": "You can't be seen without the aid of magic or a special sense. You are considered Heavily Obscured for the purpose of hiding.",
+        "reference": "PHB, pg. 370.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "An invisible creature gains the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You have Advantage on Initiative rolls and attack rolls unless your target can see you.",
+                    "Attack rolls against you have Disadvantage, unless your attacker can see you.",
+                    "You aren't affected by any effect that requires its target to be seen."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Any equipment you are wearing or carrying is also concealed."
+            }
+        ]
+    },
+    {
+        "title": "Paralyzed",
+        "optional": "Standard rule",
+        "icon": "internal-injury",
+        "subtitle": "You are physically frozen",
+        "description": "You are Incapacitated, and your speed is 0.",
+        "reference": "PHB, pg. 371.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The creature also suffers from the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Attack rolls against you have Advantage.",
+                    "Any attack that hits you is a critical hit if the attacker is within 5 feet.",
+                    "You automatically fail Strength and Dexterity saving throws."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is a severe condition that renders a creature completely helpless."
+            }
+        ]
+    },
+    {
+        "title": "Petrified",
+        "optional": "Standard rule",
+        "icon": "stone-pile",
+        "subtitle": "You are turned to stone",
+        "description": "You are transformed into a solid inanimate substance, along with any nonmagical objects you are wearing or carrying.",
+        "reference": "PHB, pg. 372.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The creature is Incapacitated, its speed is 0, and it ceases aging. In addition:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Attack rolls against the creature have Advantage.",
+                    "It automatically fails Strength and Dexterity saving throws.",
+                    "It has resistance to all damage and immunity to the Poisoned condition."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "The creature's weight is increased by a factor of ten."
+            }
+        ]
+    },
+    {
+        "title": "Poisoned",
+        "optional": "Standard rule",
+        "icon": "deathcab",
+        "subtitle": "You are suffering from poison",
+        "description": "While Poisoned, you have Disadvantage on all of your d20 Tests (attack rolls, saving throws, and ability checks).",
+        "reference": "PHB, pg. 372.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "Many monster attacks and poisonous substances can inflict this condition."
+            }
+        ]
+    },
+    {
+        "title": "Prone",
+        "optional": "Standard rule",
+        "icon": "crawl",
+        "subtitle": "You are lying on the ground",
+        "description": "Your only movement option is to Crawl, unless you stand up. If your speed is 0, you can't stand up.",
+        "reference": "PHB, pg. 372.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The creature is also affected in the following ways:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You have Disadvantage on attack rolls.",
+                    "Attack rolls against you have Advantage if the attacker is within 5 feet. Otherwise, attacks have Disadvantage."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "Standing up costs an amount of movement equal to half your speed."
+            }
+        ]
+    },
+    {
+        "title": "Restrained",
+        "optional": "Standard rule",
+        "icon": "imprisoned",
+        "subtitle": "Your movement is prevented",
+        "description": "Your Speed is 0 and cannot be increased.",
+        "reference": "PHB, pg. 373.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The creature also suffers from the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "You have Disadvantage on attack rolls and Dexterity saving throws.",
+                    "Attack rolls against you have Advantage."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This condition can be caused by spells like <i>Entangle</i> or being held in a giant spider's web."
+            }
+        ]
+    },
+    {
+        "title": "Stunned",
+        "optional": "Standard rule",
+        "icon": "internal-injury",
+        "subtitle": "You are dazed and unable to act",
+        "description": "You are Incapacitated and can speak only falteringly.",
+        "reference": "PHB, pg. 376.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The creature also suffers from the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Attack rolls against you have Advantage.",
+                    "You automatically fail Strength and Dexterity saving throws."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This condition often results from a powerful blow or a stunning magical effect."
+            }
+        ]
+    },
+    {
+        "title": "Unconscious",
+        "optional": "Standard rule",
+        "icon": "coma",
+        "subtitle": "You are senseless",
+        "description": "You are Incapacitated, Prone, and unaware of your surroundings. You drop whatever you're holding.",
+        "reference": "PHB, pg. 377.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "In addition, the creature suffers from the following effects:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "Your speed is 0 and can't increase.",
+                    "Attack rolls against you have Advantage, and any hit from within 5 feet is a critical hit.",
+                    "You automatically fail Strength and Dexterity saving throws."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This condition occurs when a creature drops to 0 hit points or is rendered unconscious by other means."
+            }
+        ]
+    }
+]

@@ -1,0 +1,56 @@
+[
+    {
+        "title": "Cast a Spell",
+        "optional": "Standard rule",
+        "icon": "magic-swirl",
+        "subtitle": "Use a spell with a 1-reaction cast time",
+        "description": "Some spells, like Shield or Counterspell, have a casting time of 1 Reaction, allowing you to cast them in response to a specific event.",
+        "reference": "PHB, pg. 235-238.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The trigger for the reaction is specified by the spell itself."
+            }
+        ]
+    },
+    {
+        "title": "Opportunity Attack",
+        "optional": "Standard rule",
+        "icon": "crossed-swords",
+        "subtitle": "Strike a foe who moves away",
+        "description": "You can make a melee attack against a creature that moves out of your reach, interrupting its movement.",
+        "reference": "PHB, pg. 371.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The rules for this attack are as follows:"
+            },
+            {
+                "type": "list",
+                "items": [
+                    "<b>Trigger:</b> An enemy you can see leaves your reach using its Action, Bonus Action, Reaction, or Speed.",
+                    "<b>Reaction:</b> Make one melee attack with a weapon or an unarmed strike against the provoking creature.",
+                    "The attack occurs right before the creature leaves your reach."
+                ]
+            },
+            {
+                "type": "paragraph",
+                "content": "This is one of the most common reactions in combat."
+            }
+        ]
+    },
+    {
+        "title": "Readied Action",
+        "optional": "Standard rule",
+        "icon": "stopwatch",
+        "subtitle": "Act on your chosen trigger",
+        "description": "Execute the action you prepared using the Ready action on your turn.",
+        "reference": "PHB, pg. 372-373.",
+        "bullets": [
+            {
+                "type": "paragraph",
+                "content": "The trigger and reaction are those that you specified when you took the <i>Ready</i> action."
+            }
+        ]
+    }
+]

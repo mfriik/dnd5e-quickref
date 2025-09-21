@@ -1,224 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <title>D&D 5e quick reference</title>
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="css/quickref.css">
-    <link rel="stylesheet" type="text/css" href="css/icons.css">
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet'
-        type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
-    <!-- Javascript -->
-    <!-- <script type="text/javascript" src="js/jquery/jquery.min.js" charset="utf-8"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A quick reference guide for D&D 5th Edition rules, including movement, actions, conditions, and environmental effects.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' 'sha256-vvt4KWwuNr51XfE5m+hzeNEGhiOfZzG97ccfqGsPwvE='; img-src 'self' data:;">
+    <title>D&D 5e Quick Reference</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&display=swap" as="style" data-preload-stylesheet>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Lora:700&display=swap" as="style" data-preload-stylesheet>
+    <link rel="preload" href="css/quickref.css" as="style" data-preload-stylesheet>
+    <link rel="preload" href="css/icons.css" as="style" data-preload-stylesheet>
+    <noscript>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lora:700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/quickref.css">
+        <link rel="stylesheet" href="css/icons.css">
+    </noscript>
 </head>
 
-<body class="page-background">
-    <div class="dark-mode">
-        <div class="page fontsize" data-size="fullscreen">
-
-            <!-- Movement section -->
-            <div id="section-movement" class="section-container">
-                <div class="section-title">
-                    Movement
-                    <span class="float-right">limited by movement speed</span>
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can move at any time during your turn (before, after, or during actions).
-                    </div>
-                    <div class="section-row" id="basic-movement">
-                    </div>
-                </div>
+<body class="loading">
+    <main class="page">
+        <section id="section-movement" class="section-container">
+            <h2 class="section-title">
+                <span>Movement</span>
+                <span class="float-right">limited by movement speed</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    You can move at any time during your turn (before, after, or during actions).
+                </p>
+                <div class="section-row" id="container-movement"></div>
             </div>
+        </section>
 
-            <!-- Action section -->
-            <div id="section-action" class="section-container">
-                <div class="section-title">
-                    Action
-                    <span class="float-right">1/turn</span>
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can also interact with one object or feature of the
-                        environment for free.
-                    </div>
-                    <div class="section-row" id="basic-actions"></div>
-                </div>
+        <section id="section-action" class="section-container">
+            <h2 class="section-title">
+                <span>Action</span>
+                <span class="float-right">1/turn</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    You can also interact with one object or feature of the environment for free.
+                </p>
+                <div class="section-row" id="container-actions"></div>
             </div>
+        </section>
 
-            <!-- Bonus action section -->
-            <div id="section-bonus-action" class="section-container">
-                <div class="section-title">
-                    Bonus action
-                    <span class="float-right">max. 1/turn</span>
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can take a bonus action only when a special ability, spell, or feature
-                        states that you can do something as a bonus action.
-                    </div>
-                    <div class="section-row" id="basic-bonus-actions"></div>
-                </div>
+        <section id="section-bonus-action" class="section-container">
+            <h2 class="section-title">
+                <span>Bonus action</span>
+                <span class="float-right">max. 1/turn</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    You can take a bonus action only when a special ability, spell, or feature
+                    states that you can do something as a bonus action.
+                </p>
+                <div class="section-row" id="container-bonus-actions"></div>
             </div>
+        </section>
 
-            <!-- Reaction section -->
-            <div id="section-reaction" class="section-container">
-                <div class="section-title">
-                    Reaction
-                    <span class="float-right">max. 1/round</span>
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        A reaction is an instant response to a trigger of some kind, which
-                        can occur on your turn or on someone else's.
-                    </div>
-                    <div class="section-row" id="basic-reactions"></div>
-                </div>
+        <section id="section-reaction" class="section-container">
+            <h2 class="section-title">
+                <span>Reaction</span>
+                <span class="float-right">max. 1/round</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    A reaction is an instant response to a trigger of some kind, which
+                    can occur on your turn or on someone else's.
+                </p>
+                <div class="section-row" id="container-reactions"></div>
             </div>
+        </section>
 
-            <!-- Condition section -->
-            <div id="section-condition" class="section-container">
-                <div class="section-title">
-                    Condition
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        Conditions alter your capabilities in a variety of ways, and can arise as a result of a spell, a
-                        class feature, a monster's attack, or other effect.
-                    </div>
-                    <div class="section-row" id="basic-conditions"></div>
-                </div>
+        <section id="section-condition" class="section-container">
+            <h2 class="section-title">
+                <span>Condition</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    Conditions alter your capabilities in a variety of ways, and can arise as a result of a spell, a
+                    class feature, a monster's attack, or other effect.
+                </p>
+                <div class="section-row" id="container-conditions"></div>
             </div>
+        </section>
 
-            <!-- Environmental section -->
-            <div id="section-environment" class="section-container">
-                <div class="section-title">
-                    Environmental Effects
-                </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        Effects that obscure vision can prove a significant hindrance to most adventuring tasks.
-                    </div>
-                    <div class="section-row" id="environment-obscurance"></div>
-                    <div class="section-row section-subtitle text fontsize">
-                        The presence or absence of light in an environment creates three categories of illumination.
-                    </div>
-                    <div class="section-row" id="environment-light"></div>
-                    <div class="section-row section-subtitle text fontsize">
-                        Some creatures have extraordinary senses that allow them to perceive their environment.
-                    </div>
-                    <div class="section-row" id="environment-vision"></div>
-                    <div class="section-row section-subtitle text fontsize">
-                        Obstacles can provide cover during combat, making a target more difficult to harm.
-                    </div>
-                    <div class="section-row" id="environment-cover"></div>
-                </div>
+        <section id="section-environment" class="section-container">
+            <h2 class="section-title">
+                <span>Environmental Effects</span>
+            </h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    Effects that obscure vision can prove a significant hindrance to most adventuring tasks.
+                </p>
+                <div class="section-row" id="container-environment-obscurance"></div>
+                <p class="section-subtitle text">
+                    The presence or absence of light in an environment creates three categories of illumination.
+                </p>
+                <div class="section-row" id="container-environment-light"></div>
+                <p class="section-subtitle text">
+                    Some creatures have extraordinary senses that allow them to perceive their environment.
+                </p>
+                <div class="section-row" id="container-environment-vision"></div>
+                <p class="section-subtitle text">
+                    Obstacles can provide cover during combat, making a target more difficult to harm.
+                </p>
+                <div class="section-row" id="container-environment-cover"></div>
             </div>
-            <!-- Settings section -->
-            <div id="section-settings" class="section-container">
-                <div class="section-title">Settings</div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can change below toggle for settings on this page.
-                    </div>
-                    <div class="item itemsize" title="Include Optional Rules">
-                        <div class="item-icon"><label class="switch">
+        </section>
+        
+        <section id="section-settings" class="section-container">
+            <h2 class="section-title"><span>Settings</span></h2>
+            <div class="section-content">
+                <p class="section-subtitle text">
+                    You can change the settings for this page below.
+                </p>
+                <div class="section-row">
+                    <label class="settings-item" for="optional-switch">
+                        <div class="item-icon">
+                            <div class="switch">
                                 <input type="checkbox" id="optional-switch">
                                 <span class="slider round"></span>
-                            </label></div>
-                        <div class="item-text-container text" id="optional-toggle-item">
+                            </div>
+                        </div>
+                        <div class="item-text-container text">
                             <div class="item-title">Include Optional Rules (*)</div>
                             <div class="item-desc">Show/hide optional rules from DMG.</div>
                         </div>
-                    </div>
-                    <div class="item itemsize" title="Include Homebre Rules">
-                        <div class="item-icon"><label class="switch">
+                    </label>
+                    <label class="settings-item" for="homebrew-switch">
+                        <div class="item-icon">
+                            <div class="switch">
                                 <input type="checkbox" id="homebrew-switch">
                                 <span class="slider round"></span>
-                            </label></div>
-                        <div class="item-text-container text" id="homebrew-toggle-item">
+                            </div>
+                        </div>
+                        <div class="item-text-container text">
                             <div class="item-title">Include Homebrew Rules (**)</div>
                             <div class="item-desc">Show/hide most common Homebrew rules.</div>
                         </div>
-                    </div>
-                    <div class="item itemsize" title="Darkmode" hidden>
-                        <div class="item-icon"><label class="switch">
+                    </label>
+                    <label class="settings-item" for="darkmode-switch">
+                        <div class="item-icon">
+                            <div class="switch">
                                 <input type="checkbox" id="darkmode-switch">
                                 <span class="slider round"></span>
-                            </label></div>
-                        <div class="item-text-container text" id="darkmode-toggle-item">
-                            <div class="item-title">Darkmode</div>
-                            <div class="item-desc">Enable Darkmode</div>
-                        </div>
-                    </div>
-                    <div class="item itemsize" title="Include 2024 Rules">
-                        <div class="item-icon"><label class="switch">
-                                <input type="checkbox" id="rules2024-switch">
-                                <span class="slider round"></span>
-                            </label></div>
-                        <div class="item-text-container text" id="2024rules-toggle-item">
-                            <div class="item-title">Switch to 2024 Rules</div>
-                            <div class="item-desc">Enable D&D 2024 Rules.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal dialog for displaying detailed quickref item info -->
-        <div class="modal" id="modal" tabindex="-1">
-            <div class="modal-backdrop" id="modal-backdrop"></div>
-            <div class="modal-dialog modalsize">
-                <div class="section-container modal-container" id="modal-container">
-                    <!-- Modal header: displays the title and type of the selected item -->
-                    <div class="section-title" id="modal-title">
-                        Modal title<span class="float-right">Action</span>
-                    </div>
-                    <div class="section-content">
-                        <!-- Modal subtitle: shows a short description or subtitle for the item -->
-                        <div class="section-row section-subtitle text" id="modal-subtitle">
-                            Subtitle
-                        </div>
-                        <!-- Modal bullets: lists detailed points or rules for the item -->
-                        <div class="section-row text">
-                            <div id="modal-bullets">
                             </div>
                         </div>
-                        <!-- Modal reference: shows the source or reference for the rule/item -->
-                        <div class="section-row text" id="modal-reference">
+                        <div class="item-text-container text">
+                            <div class="item-title">Dark Mode</div>
+                            <div class="item-desc">Enable high-contrast dark theme.</div>
                         </div>
+                    </label>
+                    <label class="settings-item" for="rules2024-switch">
+                        <div class="item-icon">
+                            <div class="switch">
+                                <input type="checkbox" id="rules2024-switch">
+                                <span class="slider round"></span>
+                            </div>
+                        </div>
+                        <div class="item-text-container text">
+                            <div class="item-title">Switch to 2024 Rules</div>
+                            <div class="item-desc">Enable D&D 2024 playtest rules.</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div id="modal-dialog" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" aria-hidden="true">
+        <div id="modal-backdrop" class="modal-backdrop"></div>
+        <div class="modal-dialog-body">
+            <div id="modal-container" class="section-container modal-container">
+                <div class="section-title" id="modal-title">
+                    <span id="modal-title-text">Modal Title</span>
+                    <span id="modal-category" class="float-right">Category</span>
+                </div>
+                <div class="section-content">
+                    <p id="modal-subtitle" class="section-row section-subtitle text">
+                        Subtitle
+                    </p>
+                    <div class="section-row text">
+                        <div id="modal-bullets"></div>
                     </div>
+                    <p id="modal-reference" class="section-row text"></p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Cookie notice: informs users about cookie usage and provides an accept button -->
-    <div id="cookie-notice" class="cookie-notice">
-        <p>This website uses cookies to ensure you get the best experience on our website.</p>
-        <button id="accept-cookies">Accept</button>
+
+    <div id="cookie-notice" class="cookie-notice" role="dialog" aria-live="polite" aria-label="Cookie consent">
+        <p>This website uses cookies to ensure you get the best experience.</p>
+        <button id="accept-cookies-button" type="button">Accept</button>
     </div>
-    <!-- Main quickref JavaScript logic: handles dynamic content, toggles, and filtering -->
-    <script type="text/javascript" src="js/quickref.js" charset="utf-8"></script>
-    <script>
-        // Cookie notice logic: shows the notice if not accepted, hides it on accept
-        document.addEventListener('DOMContentLoaded', function () {
-            var cookieNotice = document.getElementById('cookie-notice');
-            var acceptButton = document.getElementById('accept-cookies');
-
-            if (!localStorage.getItem('cookiesAccepted')) {
-                cookieNotice.style.display = 'block';
-            }
-
-            acceptButton.addEventListener('click', function () {
-                localStorage.setItem('cookiesAccepted', 'true');
-                cookieNotice.style.display = 'none';
-            });
-        });
-    </script>
-
+    
+    <script defer src="js/quickref.js"></script>
 </body>
-
 </html>
