@@ -38,8 +38,6 @@ It’s built for players and DMs who want the essentials at their fingertips —
 - 🧙 **Optional & Homebrew Toggles** – Show or hide extra content on demand.  
 - 🌗 **Dark Mode** – Eye-friendly for late-night sessions.  
 - 🔄 **2014 ↔ 2024 Rules Switch** – Instantly swap between editions.  
-- 🪶 **Printer Friendly** – Perfect for physical quick sheets.  
-
 </details>
 
 ---
