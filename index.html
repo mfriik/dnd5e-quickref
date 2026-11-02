@@ -18,29 +18,33 @@
         // This logic is inlined in the HTML to ensure it runs even if the main JS file is cached.
         (function() {
             // Increment this version number when you deploy breaking changes or significant updates.
-            const CURRENT_APP_VERSION = '2.1.5'; // Updated version for domain notification
+            const CURRENT_APP_VERSION = '2.2.0';
             window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
             const VERSION_KEY = 'appVersion';
             const storedVersion = localStorage.getItem(VERSION_KEY);
 
             if (storedVersion !== CURRENT_APP_VERSION) {
                 localStorage.setItem(VERSION_KEY, CURRENT_APP_VERSION);
-                // Reset domain notification when version changes so all users see it
-                localStorage.removeItem('domainChangeNotificationDismissed');
                 // The 'true' argument forces a hard refresh, clearing the cache for the page.
                 location.reload(true);
             }
         })();
+        const savedTheme = localStorage.getItem('darkmode');
+        const useDarkTheme = savedTheme === null
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : savedTheme === 'true';
+        document.documentElement.classList.toggle('dark-mode-active', useDarkTheme);
     </script>
 </head>
 
 <body class="page-background">
+    <a class="skip-link" href="#main-content">Skip to rules</a>
     <!-- Domain Change Notification Modal -->
-    <div id="domain-change-modal" class="domain-modal-overlay hidden">
+    <dialog id="domain-change-modal" class="domain-modal-overlay" aria-labelledby="domain-modal-title">
         <div class="domain-modal-content">
             <div class="domain-modal-header">
-                <h2>📍 Our Quick Reference Sheet has moved!</h2>
-                <button class="domain-modal-close" onclick="closeDomainModal()">&times;</button>
+                <h2 id="domain-modal-title">📍 Our Quick Reference Sheet has moved!</h2>
+                <button type="button" class="domain-modal-close" aria-label="Close domain notification" onclick="closeDomainModal()">&times;</button>
             </div>
             <div class="domain-modal-body">
                 <p>The D&D 5e Quick Reference has moved to a new domain!</p>
@@ -49,17 +53,44 @@
                     🔗 <strong>New address:</strong> <span class="new-domain">dnd.misiek.win</span>
                 </p>
                 <p>You'll be automatically redirected, but using the new link directly is recommended.</p>
-                <p><u><strong>The old address will stop working after <span style="color:red">20th of November</span>, including the redirect.</strong></u> </p>
+                <p class="domain-deadline"><strong>The old address will stop working after <span>20th of November</span>, including the redirect.</strong></p>
                 <p>Make sure to update your bookmarks accordingly.</p>
             </div>
             <div class="domain-modal-footer">
-                <button class="domain-btn-primary" onclick="closeDomainModal()">Got it, thanks!</button>
+                <button type="button" class="domain-btn-primary" onclick="closeDomainModal()" autofocus>Got it, thanks!</button>
             </div>
         </div>
-    </div>
+    </dialog>
 
     <div class="dark-mode">
-        <div class="page fontsize" data-size="fullscreen">
+        <header class="site-header">
+            <div class="brand-mark" aria-hidden="true"><img src="favicon.ico" alt="" width="40" height="40"></div>
+            <div class="site-heading">
+                <p class="eyebrow">Your adventuring companion</p>
+                <h1 id="page-title" tabindex="-1">D&D <span>Quick Reference</span></h1>
+            </div>
+            <div class="header-meta">
+                <span class="ruleset-badge" id="header-ruleset-label">D&D 2014</span>
+                <div class="settings-dropdown">
+                    <button type="button" class="settings-trigger" id="settings-trigger" aria-label="Settings" aria-expanded="false" aria-controls="settings-panel" title="Settings">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m9 3-.6 2.4-2 .9-2.2-.7-2 3.4 1.7 1.7v2.6L2.2 15l2 3.4 2.2-.7 2 .9L9 21h4l.6-2.4 2-.9 2.2.7 2-3.4-1.7-1.7v-2.6L19.8 9l-2-3.4-2.2.7-2-.9L13 3Z"/>
+                            <circle cx="11" cy="12" r="3"/>
+                        </svg>
+                        <span>Settings</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <nav class="category-nav" aria-label="Rule categories">
+            <a href="#section-movement">Movement</a>
+            <a href="#section-action">Action</a>
+            <a href="#section-bonus-action">Bonus action</a>
+            <a href="#section-reaction">Reaction</a>
+            <a href="#section-condition">Conditions</a>
+            <a href="#section-environment">Environment</a>
+        </nav>
+        <main id="main-content" class="page fontsize" data-size="fullscreen" tabindex="-1">
 
             <!-- Movement section -->
             <div id="section-movement" class="section-container">
@@ -195,22 +226,13 @@
                     <div class="section-row" id="environment-cover"></div>
                 </div>
             </div>
-            <!-- Settings section -->
-            <div id="section-settings" class="section-container">
-                <div class="section-title">
-                    <div class="section-title-content">
-                        <div class="section-title-text">
-                            Settings
-                            <span class="chevron collapsed"></span>
-                            <button class="collapse-all-btn" id="app-version-display" disabled>v0.0.0</button>
-                        </div>
-                        <span class="float-right" id="active-ruleset-label"></span>
-                    </div>
+            <div id="settings-panel" class="settings-panel" aria-labelledby="settings-heading" hidden>
+                <div class="settings-panel-heading">
+                    <h2 id="settings-heading">Settings</h2>
+                    <span class="app-version" id="app-version-display"></span>
                 </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can change below toggles to adjust settings for this page.
-                    </div>
+                <p class="section-subtitle" id="active-ruleset-label"></p>
+                <div>
                     <div class="section-row" id="settings-items-container">
                         <div class="item itemsize settings-item" title="Include Optional Rules">
                             <div class="item-text-container text" id="optional-toggle-item">
@@ -232,10 +254,10 @@
                                     <span class="slider round"></span>
                                 </label></div>
                         </div>
-                        <div class="item itemsize settings-item" title="Darkmode" hidden>
+                        <div class="item itemsize settings-item" title="Darkmode">
                             <div class="item-text-container text" id="darkmode-toggle-item">
-                                <div class="item-title">Darkmode</div>
-                                <div class="item-desc">Enable/Disable Darkmode</div>
+                                <div class="item-title">Dark theme</div>
+                                <div class="item-desc">A softer light for late-night adventures.</div>
                             </div>
                             <div class="item-toggle"><label class="switch">
                                     <input type="checkbox" id="darkmode-switch">
@@ -255,37 +277,30 @@
                         <a href="https://github.com/mfriik/dnd5e-quickref/issues" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Leave Feedback" id="feedback-link-item">
                             <div class="item-text-container text">
                                 <div class="item-title">Leave Feedback</div>
-                                <div class="item-desc">Found an issue or have a suggestion? Let me know!</div>
+                                <div class="item-desc">Found an issue or have a suggestion? Let me know! <span class="sr-only">(opens in a new tab)</span></div>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        <footer class="site-footer">
+            <span>Made for the moments between dice rolls.</span>
+            <a href="https://github.com/mfriik/dnd5e-quickref" target="_blank" rel="noopener noreferrer">View on GitHub <span class="sr-only">(opens in a new tab)</span><span aria-hidden="true">&#8599;</span></a>
+        </footer>
     </div>
+    <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
     <!-- Cookie notice: informs users about cookie usage and provides an accept button -->
-    <div id="cookie-notice" class="cookie-notice">
+    <div id="cookie-notice" class="cookie-notice" role="region" aria-label="Cookie notice" hidden>
         <p>This website uses cookies to ensure you get the best experience on our website.</p>
-        <button id="accept-cookies">Accept</button>
+        <button type="button" id="accept-cookies">Accept</button>
     </div>
     <!-- Main quickref JavaScript logic: handles dynamic content, toggles, and filtering -->
     <script type="text/javascript" src="js/quickref.js" charset="utf-8"></script>
-    <script>
-        // Cookie notice logic: shows the notice if not accepted, hides it on accept
-        document.addEventListener('DOMContentLoaded', function () {
-            var cookieNotice = document.getElementById('cookie-notice');
-            var acceptButton = document.getElementById('accept-cookies');
-
-            if (!localStorage.getItem('cookiesAccepted')) {
-                cookieNotice.style.display = 'block';
-            }
-
-            acceptButton.addEventListener('click', function () {
-                localStorage.setItem('cookiesAccepted', 'true');
-                cookieNotice.style.display = 'none';
-            });
-        });
-    </script>
 
 </body>
 
