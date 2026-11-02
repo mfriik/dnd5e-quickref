@@ -498,14 +498,18 @@ function closeDomainModal() {
 // Initialize domain change notification on page load
 document.addEventListener('DOMContentLoaded', function() {
     const notificationDismissed = localStorage.getItem('domainChangeNotificationDismissed');
-    
-    // Check if user is on the new domain
     const isNewDomain = window.location.hostname.includes('dnd.misiek.win');
+    
+    console.log('[Domain Modal] hostname:', window.location.hostname);
+    console.log('[Domain Modal] isNewDomain:', isNewDomain);
+    console.log('[Domain Modal] notificationDismissed:', notificationDismissed);
+    console.log('[Domain Modal] should show:', !notificationDismissed && isNewDomain);
     
     // Show modal only if:
     // 1. User hasn't dismissed it before
     // 2. User is on the new domain (after redirect)
     if (!notificationDismissed && isNewDomain) {
+        console.log('[Domain Modal] Showing modal');
         showDomainModal();
     }
 });

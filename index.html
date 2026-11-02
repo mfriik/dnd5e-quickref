@@ -18,13 +18,15 @@
         // This logic is inlined in the HTML to ensure it runs even if the main JS file is cached.
         (function() {
             // Increment this version number when you deploy breaking changes or significant updates.
-            const CURRENT_APP_VERSION = '2.1.4'; // Updated version
+            const CURRENT_APP_VERSION = '2.1.5'; // Updated version for domain notification
             window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
             const VERSION_KEY = 'appVersion';
             const storedVersion = localStorage.getItem(VERSION_KEY);
 
             if (storedVersion !== CURRENT_APP_VERSION) {
                 localStorage.setItem(VERSION_KEY, CURRENT_APP_VERSION);
+                // Reset domain notification when version changes so all users see it
+                localStorage.removeItem('domainChangeNotificationDismissed');
                 // The 'true' argument forces a hard refresh, clearing the cache for the page.
                 location.reload(true);
             }
