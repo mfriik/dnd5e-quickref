@@ -478,3 +478,34 @@ function showItem(item) {
 }
 // Replace toggle logic:
 // if (shouldHide) hideItem(item); else showItem(item);
+
+// Domain change notification modal logic
+function showDomainModal() {
+    const modal = document.getElementById('domain-change-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function closeDomainModal() {
+    const modal = document.getElementById('domain-change-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        localStorage.setItem('domainChangeNotificationDismissed', 'true');
+    }
+}
+
+// Initialize domain change notification on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const notificationDismissed = localStorage.getItem('domainChangeNotificationDismissed');
+    
+    // Check if user is already on the new domain or has dismissed the notification
+    const isNewDomain = window.location.hostname.includes('dnd.misiek.win');
+    
+    // Show modal only if:
+    // 1. User hasn't dismissed it before
+    // 2. User is still on the old domain (being redirected or accessed directly)
+    if (!notificationDismissed && !isNewDomain) {
+        showDomainModal();
+    }
+});

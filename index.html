@@ -33,6 +33,29 @@
 </head>
 
 <body class="page-background">
+    <!-- Domain Change Notification Modal -->
+    <div id="domain-change-modal" class="domain-modal-overlay hidden">
+        <div class="domain-modal-content">
+            <div class="domain-modal-header">
+                <h2>📍 Our Quick Reference Sheet has moved!</h2>
+                <button class="domain-modal-close" onclick="closeDomainModal()">&times;</button>
+            </div>
+            <div class="domain-modal-body">
+                <p>The D&D 5e Quick Reference has moved to a new domain!</p>
+                <p class="domain-highlight">
+                    🔗 <strong>Old address:</strong> dnd.milobedzki.pl<br>
+                    🔗 <strong>New address:</strong> <span class="new-domain">dnd.misiek.win</span>
+                </p>
+                <p>You'll be automatically redirected, but using the new link directly is recommended.</p>
+                <p><u><strong>The old address will stop working on <span style="color:red">1st of Dec</span></strong></u>.</p>
+                <p>Make sure to update your bookmarks accordingly.</p>
+            </div>
+            <div class="domain-modal-footer">
+                <button class="domain-btn-primary" onclick="closeDomainModal()">Got it, thanks!</button>
+            </div>
+        </div>
+    </div>
+
     <div class="dark-mode">
         <div class="page fontsize" data-size="fullscreen">
 
