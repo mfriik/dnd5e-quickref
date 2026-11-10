@@ -605,6 +605,12 @@ input:checked+.slider:before {
     margin-left: auto;
 }
 
+.settings-item .item-icon {
+    margin-left: auto;
+    margin-right: 0;
+    filter: brightness(0);
+}
+
 /* Container for settings items to enable flex grid layout */
 #settings-items-container {
     display: grid;
@@ -747,6 +753,10 @@ input:checked+.slider:before {
 .dark-mode-active #section-settings .text {
     /* Subtitle color is handled by the more specific rule for .section-subtitle */
     color: #fff;
+}
+
+.dark-mode-active #section-settings .item-icon {
+    filter: none;
 }
 
 /* Switch styles in dark mode */

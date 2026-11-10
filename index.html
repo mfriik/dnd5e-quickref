@@ -18,7 +18,7 @@
         // This logic is inlined in the HTML to ensure it runs even if the main JS file is cached.
         (function() {
             // Increment this version number when you deploy breaking changes or significant updates.
-            const CURRENT_APP_VERSION = '2.1.5'; // Updated version for domain notification
+            const CURRENT_APP_VERSION = '2.1.7';
             window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
             const VERSION_KEY = 'appVersion';
             const storedVersion = localStorage.getItem(VERSION_KEY);
@@ -27,6 +27,7 @@
                 localStorage.setItem(VERSION_KEY, CURRENT_APP_VERSION);
                 // Reset domain notification when version changes so all users see it
                 localStorage.removeItem('domainChangeNotificationDismissed');
+                localStorage.removeItem('section-settings-collapsed');
                 // The 'true' argument forces a hard refresh, clearing the cache for the page.
                 location.reload(true);
             }
@@ -201,7 +202,7 @@
                     <div class="section-title-content">
                         <div class="section-title-text">
                             Settings
-                            <span class="chevron collapsed"></span>
+                            <span class="chevron"></span>
                             <button class="collapse-all-btn" id="app-version-display" disabled>v0.0.0</button>
                         </div>
                         <span class="float-right" id="active-ruleset-label"></span>
@@ -257,6 +258,13 @@
                                 <div class="item-title">Leave Feedback</div>
                                 <div class="item-desc">Found an issue or have a suggestion? Let me know!</div>
                             </div>
+                        </a>
+                        <a href="https://dndtest.misiek.win" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Visit D&D Test Site" id="dnd-test-site-link-item">
+                            <div class="item-text-container text">
+                                <div class="item-title">Open New D&D Test Site</div>
+                                <div class="item-desc">Check out the new D&D test site for new experimental features that I intend to implement at some point on the current page.</div>
+                            </div>
+                            <div class="item-icon iconsize icon-bubbling-flask" aria-hidden="true"></div>
                         </a>
                     </div>
                 </div>
