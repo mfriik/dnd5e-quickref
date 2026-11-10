@@ -16,7 +16,7 @@
 
 - [**mfriik.github.io/dnd5e-quickref**](https://mfriik.github.io/dnd5e-quickref/)  
 - [**dnd.milobedzki.pl**](https://dnd.milobedzki.pl/)
-- [**dnd.misiek.win**](https://dnd.misiek.win) - NEW DOMAIN - it was cheaper :P
+- [**dnd.misiek.win**](https://dnd.misiek.win) - NEW DOMAIN - it was cheaper 😂
 
 ---
 
