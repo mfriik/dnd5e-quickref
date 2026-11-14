@@ -3,9 +3,9 @@ data_bonusaction = [
         title: "Offhand Attack",
         optional: "Standard rule",
         icon: "crossed-swords",
-        subtitle: "Use with the Attack action",
-        description: "Attack with your off hand",
-        reference: "PHB, pgs. 192,194-195.",
+        subtitle: "Use with the Attack Action",
+        description: "Attack with Your Off Hand",
+        reference: "PHB'14, pgs. 192,194-195.",
         bullets: [
             "Only usable if you take the <i>Attack</i> action and attack with a light melee weapon that you're holding in one hand.",
             "Perform a single attack with a different light melee weapon that you're holding in the other hand.",
@@ -14,65 +14,75 @@ data_bonusaction = [
         ]
     },
     {
-        title: "Cast a spell",
+        title: "Cast a Spell",
         optional: "Standard rule",
         icon: "magic-swirl",
-        subtitle: "Cast time of 1 bonus action",
-        description: "Cast a spell with a casting time of 1 bonus action",
-        reference: "PHB, pg. 192.",
+        subtitle: "Cast Time of 1 Bonus Action",
+        description: "Cast a Spell with a Casting Time of 1 Bonus Action",
+        reference: "PHB'14, pg. 192.",
         bullets: [
             "You can't cast a spell with your action and a different spell with your bonus action in the same turn, except if the action is used to cast a cantrip.",
             "For further details, see the <i>Cast a spell</i> action."
         ]
     },
     {
-        title: "Use class feature",
+        title: "Use Class Feature",
         optional: "Standard rule",
         icon: "embrassed-energy",
-        subtitle: "Some features use bonus actions",
-        description: "Use a racial or class feature that uses a bonus action",
+        subtitle: "Some Features Use Bonus Actions",
+        description: "Use a Racial or Class Feature That Uses a Bonus Action",
         reference: "See class page for more information.",
         bullets: [
 
         ]
     },
     {
-        title: "Overrun*",
-        optional: "Optional rule",
+        title: "Overrun",
+        optional: "Optional Official rule",
         icon: "shield-bash",
-        subtitle: "Run through a hostile space",
-        description: "When a creature tries to move through a hostile creature's space, the mover can try to force its way through by overrunning the hostile creature.",
+        subtitle: "Run Through a Hostile Space",
+        description: "When a Creature Tries to Move Through a Hostile Creature's Space, the Mover Can Try to Force Its Way Through by Overrunning the Hostile Creature.",
         reference: "DMG, page 272",
         bullets: [
-            "(Optional Rule):",
             "As a bonus action, the mover makes a Strength (Athletics) check contested by the hostile creature's Strength (Athletics) check.",
             "The creature attempting the overrun has advantage on this check if it is larger than the hostile creature, or disadvantage if it is smaller.",
             "If the mover wins the contest, it can move through the hostile creature's space once this turn."
         ]
     },
     {
-        title: "Tumble*",
-        optional: "Optional rule",
+        title: "Tumble",
+        optional: "Optional Official rule",
         icon: "tumble",
-        subtitle: "Tumble through a hostile space",
-        description: "A creature can try to tumble through a hostile creature's space, ducking and weaving past the opponent.",
+        subtitle: "Tumble Through a Hostile Space",
+        description: "A Creature Can Try to Tumble Through a Hostile Creature's Space, Ducking and Weaving Past the Opponent.",
         reference: "DMG, page 272",
         bullets: [
-            "(Optional Rule):",
             "As a bonus action, the tumbler makes a Dexterity (Acrobatics) check contested by the hostile creature's Dexterity (Acrobatics) check.",
             "If the tumbler wins the contest, it can move through the hostile creature's space once this turn."
         ]
     },
     {
-        title: "Drink a potion **",
+        title: "Take Aim",
+        optional: "Homebrew rule",
+        icon: "on-target",
+        subtitle: "Trade Movement for Accuracy",
+        description: "Focus Your Aim to Gain Advantage on Your Next Ranged Attack.",
+        reference: "Popular 5e Homebrew",
+        bullets: [
+            "As a bonus action, you give yourself Advantage on your next ranged weapon attack roll on the current turn.",
+            "You can use this bonus action only if you haven't moved during this turn, and after you use the bonus action, your speed is 0 until the end of the current turn.",
+            "If you take damage before making the attack, you lose this benefit."
+        ]
+    },
+    {
+        title: "Drink a Potion",
         optional: "Homebrew rule",
         icon: "potion-ball",
-        subtitle: "Roll for the effect",
-        description: "Roll the dice as per the description of the potion",
+        subtitle: "Roll for the Effect",
+        description: "Roll the Dice as per the Description of the Potion",
         bullets: [
-            "(Optional Rule):",
             "Normally Drinking potion counts as an <i>Action</i> and will heal by maximum amount.",
             "When using it as <i>Bonus action</i>, roll the dice as per the description of the potion."
         ],
-    },
+    }
 ]

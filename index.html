@@ -4,63 +4,131 @@
 <head>
     <meta charset="utf-8" />
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <title>D&D 5e quick reference</title>
+    <meta name="darkreader-lock">
+    <title>D&D 5e quick reference </title>
+    <style>
+        .rules-loading .section-container,
+        .rules-loading .category-nav > a { visibility: hidden; }
+    </style>
+    <script>
+        document.documentElement.classList.add('rules-loading');
+    </script>
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/quickref.css">
-    <link rel="stylesheet" type="text/css" href="css/icons.css">
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet'
         type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
     <!-- Javascript -->
     <script>
-        // Force a hard refresh if the cached version of the app is outdated.
+        // Show the saved layout and force a hard refresh if the cached version of the app is outdated.
         // This logic is inlined in the HTML to ensure it runs even if the main JS file is cached.
         (function() {
             // Increment this version number when you deploy breaking changes or significant updates.
-            const CURRENT_APP_VERSION = '2.1.7';
+            // Keep it in sync with classic/index.html.
+            const CURRENT_APP_VERSION = '3.1.0';
             window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
             const VERSION_KEY = 'appVersion';
             const storedVersion = localStorage.getItem(VERSION_KEY);
 
+            // The classic and new layouts are separate pages; this one is the new layout.
+            let layout = localStorage.getItem('pageLayout');
+            if (layout !== 'classic' && layout !== 'modern') {
+                // Visitors returning from the 2.x site keep the classic look they already know.
+                layout = storedVersion && parseInt(storedVersion, 10) < 3 ? 'classic' : 'modern';
+                localStorage.setItem('pageLayout', layout);
+            }
+            if (layout !== 'modern') {
+                document.documentElement.style.visibility = 'hidden';
+                location.replace('classic/' + location.search + location.hash);
+                return;
+            }
+
             if (storedVersion !== CURRENT_APP_VERSION) {
                 localStorage.setItem(VERSION_KEY, CURRENT_APP_VERSION);
-                // Reset domain notification when version changes so all users see it
-                localStorage.removeItem('domainChangeNotificationDismissed');
-                localStorage.removeItem('section-settings-collapsed');
                 // The 'true' argument forces a hard refresh, clearing the cache for the page.
                 location.reload(true);
             }
         })();
+        const savedTheme = localStorage.getItem('darkmode');
+        const useDarkTheme = savedTheme === null
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : savedTheme === 'true';
+        document.documentElement.classList.toggle('dark-mode-active', useDarkTheme);
     </script>
 </head>
 
-<body class="page-background">
-    <!-- Domain Change Notification Modal -->
-    <div id="domain-change-modal" class="domain-modal-overlay hidden">
-        <div class="domain-modal-content">
-            <div class="domain-modal-header">
-                <h2>📍 Our Quick Reference Sheet has moved!</h2>
-                <button class="domain-modal-close" onclick="closeDomainModal()">&times;</button>
+<body>
+    <a class="skip-link" href="#main-content">Skip to rules</a>
+    <div class="dark-mode">
+        <header class="site-header">
+            <div class="brand-mark" aria-hidden="true"><img src="favicon.ico" alt="" width="40" height="40"></div>
+            <div class="site-heading">
+                <p class="eyebrow">Your adventuring companion <span class="header-version" id="header-version"></span></p>
+                <h1 id="page-title" tabindex="-1">D&D <span>Quick Reference</span></h1>
             </div>
-            <div class="domain-modal-body">
-                <p>The D&D 5e Quick Reference has moved to a new domain!</p>
-                <p class="domain-highlight">
-                    🔗 <strong>Old address:</strong> dnd.milobedzki.pl<br>
-                    🔗 <strong>New address:</strong> <span class="new-domain">dnd.misiek.win</span>
-                </p>
-                <p>You'll be automatically redirected, but using the new link directly is recommended.</p>
-                <p><u><strong>The old address will stop working after <span style="color:red">20th of November</span>, including the redirect.</strong></u> </p>
-                <p>Make sure to update your bookmarks accordingly.</p>
-            </div>
-            <div class="domain-modal-footer">
-                <button class="domain-btn-primary" onclick="closeDomainModal()">Got it, thanks!</button>
+        </header>
+        <div class="top-menu">
+            <form class="rule-search" role="search" aria-label="Search rules">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="10.5" cy="10.5" r="6.5"/>
+                    <path d="m16 16 5 5"/>
+                </svg>
+                <label class="sr-only" for="rule-search">Search all rules in this edition, including optional and homebrew</label>
+                <input type="search" id="rule-search" placeholder="Search rules..." autocomplete="off" spellcheck="false">
+                <button type="button" class="search-clear" id="search-clear" aria-label="Clear search" hidden>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="m6 6 12 12M18 6 6 18"/>
+                    </svg>
+                </button>
+            </form>
+            <nav class="menu-group category-nav" aria-label="Rule navigation">
+                <a href="#section-movement" aria-label="Movement"><span class="menu-icon" aria-hidden="true"></span></a>
+                <a href="#section-action" aria-label="Action"><span class="menu-icon" aria-hidden="true"></span></a>
+                <a href="#section-bonus-action" aria-label="Bonus action"><span class="menu-icon" aria-hidden="true"></span></a>
+                <a href="#section-reaction" aria-label="Reaction"><span class="menu-icon" aria-hidden="true"></span></a>
+                <a href="#section-condition" aria-label="Conditions"><span class="menu-icon" aria-hidden="true"></span></a>
+                <a href="#section-environment" aria-label="Environmental effects"><span class="menu-icon" aria-hidden="true"></span></a>
+                <button type="button" class="menu-control" id="back-to-top" aria-label="Jump to top" title="Jump to top">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                </button>
+            </nav>
+            <div class="menu-group preferences-menu" role="group" aria-label="Ruleset, theme and settings">
+                <button type="button" class="menu-control ruleset-trigger" id="ruleset-trigger">D&D 5e</button>
+                <script>
+                    document.getElementById('ruleset-trigger').textContent =
+                        localStorage.getItem('rules2024') === 'true' ? 'D&D 5.5e' : 'D&D 5e';
+                </script>
+                <button type="button" class="menu-control theme-trigger" id="theme-trigger" aria-label="Switch to dark mode">
+                    <svg class="theme-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>
+                    </svg>
+                    <svg class="theme-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4m0-14.2-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+                    </svg>
+                </button>
+                <div class="settings-dropdown">
+                    <button type="button" class="settings-trigger" id="settings-trigger" aria-label="Settings" aria-expanded="false" aria-controls="settings-panel" title="Settings">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m9 3-.6 2.4-2 .9-2.2-.7-2 3.4 1.7 1.7v2.6L2.2 15l2 3.4 2.2-.7 2 .9L9 21h4l.6-2.4 2-.9 2.2.7 2-3.4-1.7-1.7v-2.6L19.8 9l-2-3.4-2.2.7-2-.9L13 3Z"/>
+                            <circle cx="11" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
+                <button type="button" class="menu-control help-trigger" id="help-trigger" aria-label="How to use this page" aria-haspopup="dialog" aria-controls="help-dialog">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.5 9a2.5 2.5 0 0 1 5 .3c0 1.7-2.5 2-2.5 3.7M12 17h.01"/>
+                    </svg>
+                </button>
             </div>
         </div>
-    </div>
-
-    <div class="dark-mode">
-        <div class="page fontsize" data-size="fullscreen">
+        <main id="main-content" tabindex="-1">
+            <p id="search-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+            <p id="search-empty" class="search-empty" hidden>No matching rules. Try different words or clear the search.</p>
 
             <!-- Movement section -->
             <div id="section-movement" class="section-container">
@@ -75,7 +143,7 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         You can move at any time during your turn (before, after, or during actions).
                     </div>
                     <div class="section-row" id="basic-movement">
@@ -96,7 +164,7 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         You can also interact with one object or feature of the
                         environment for free.
                     </div>
@@ -117,7 +185,7 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         You can take a bonus action only when a special ability, spell, or feature
                         states that you can do something as a bonus action.
                     </div>
@@ -138,7 +206,7 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         A reaction is an instant response to a trigger of some kind, which
                         can occur on your turn or on someone else's.
                     </div>
@@ -158,7 +226,7 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         Conditions alter your capabilities in a variety of ways, and can arise as a result of a spell, a
                         class feature, a monster's attack, or other effect.
                     </div>
@@ -178,122 +246,110 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         Effects that obscure vision can prove a significant hindrance to most adventuring tasks.
                     </div>
                     <div class="section-row" id="environment-obscurance"></div>
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         The presence or absence of light in an environment creates three categories of illumination.
                     </div>
                     <div class="section-row" id="environment-light"></div>
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         Some creatures have extraordinary senses that allow them to perceive their environment.
                     </div>
                     <div class="section-row" id="environment-vision"></div>
-                    <div class="section-row section-subtitle text fontsize">
+                    <div class="section-row section-subtitle">
                         Obstacles can provide cover during combat, making a target more difficult to harm.
                     </div>
                     <div class="section-row" id="environment-cover"></div>
                 </div>
             </div>
-            <!-- Settings section -->
-            <div id="section-settings" class="section-container">
-                <div class="section-title">
-                    <div class="section-title-content">
-                        <div class="section-title-text">
-                            Settings
-                            <span class="chevron"></span>
-                            <button class="collapse-all-btn" id="app-version-display" disabled>v0.0.0</button>
-                        </div>
-                        <span class="float-right" id="active-ruleset-label"></span>
-                    </div>
+            <div id="settings-panel" class="settings-panel" aria-labelledby="settings-heading" hidden>
+                <div class="settings-panel-heading">
+                    <h2 id="settings-heading">Settings</h2>
+                    <span class="app-version" id="app-version-display"></span>
                 </div>
-                <div class="section-content">
-                    <div class="section-row section-subtitle text fontsize">
-                        You can change below toggles to adjust settings for this page.
-                    </div>
+                <div>
                     <div class="section-row" id="settings-items-container">
-                        <div class="item itemsize settings-item" title="Include Optional Rules">
-                            <div class="item-text-container text" id="optional-toggle-item">
-                                <div class="item-title">Include Optional Rules (*)</div>
-                                <div class="item-desc">Show/hide optional official rules.</div>
-                            </div>
+                        <div class="item settings-item" title="Include Optional Rules">
+                            <label class="item-text-container" id="optional-toggle-item" for="optional-switch">
+                                <span class="item-title">Include Optional Rules</span>
+                                <span class="item-desc">Show/hide optional official rules.</span>
+                            </label>
                             <div class="item-toggle"><label class="switch">
                                     <input type="checkbox" id="optional-switch">
-                                    <span class="slider round"></span>
+                                    <span class="slider"></span>
                                 </label></div>
                         </div>
-                        <div class="item itemsize settings-item" title="Include Homebre Rules">
-                            <div class="item-text-container text" id="homebrew-toggle-item">
-                                <div class="item-title">Include Homebrew Rules (**)</div>
-                                <div class="item-desc">Show/hide most common homebrew rules.</div>
-                            </div>
+                        <div class="item settings-item" title="Include Homebre Rules">
+                            <label class="item-text-container" id="homebrew-toggle-item" for="homebrew-switch">
+                                <span class="item-title">Include Homebrew Rules</span>
+                                <span class="item-desc">Show/hide most common homebrew rules.</span>
+                            </label>
                             <div class="item-toggle"><label class="switch">
                                     <input type="checkbox" id="homebrew-switch">
-                                    <span class="slider round"></span>
+                                    <span class="slider"></span>
                                 </label></div>
                         </div>
-                        <div class="item itemsize settings-item" title="Darkmode" hidden>
-                            <div class="item-text-container text" id="darkmode-toggle-item">
-                                <div class="item-title">Darkmode</div>
-                                <div class="item-desc">Enable/Disable Darkmode</div>
-                            </div>
+                        <div class="item settings-item" title="Use Classic Layout">
+                            <label class="item-text-container" id="classic-layout-toggle-item" for="classic-layout-switch">
+                                <span class="item-title">Classic Layout</span>
+                                <span class="item-desc">Switch to the original look of this page. The page reloads.</span>
+                            </label>
                             <div class="item-toggle"><label class="switch">
-                                    <input type="checkbox" id="darkmode-switch">
-                                    <span class="slider round"></span>
+                                    <input type="checkbox" id="classic-layout-switch">
+                                    <span class="slider"></span>
                                 </label></div>
                         </div>
-                        <div class="item itemsize settings-item" title="Include 2024 Rules">
-                            <div class="item-text-container text" id="2024rules-toggle-item">
-                                <div class="item-title">Switch to 2024 Rules</div>
-                                <div class="item-desc">Enable D&D 2024 Rules.</div>
+                        <a href="https://github.com/mfriik/dnd5e-quickref/issues" data-site-href="issues" target="_blank" rel="noopener noreferrer" class="item settings-item" title="Leave Feedback" id="feedback-link-item">
+                            <div class="item-text-container">
+                                <div class="item-title">Something not working?</div>
+                                <div class="item-desc">Leave me your feedback. Found an issue or have a suggestion? Let me know! <span class="sr-only">(opens in a new tab)</span></div>
                             </div>
-                            <div class="item-toggle"><label class="switch">
-                                    <input type="checkbox" id="rules2024-switch">
-                                    <span class="slider round"></span>
-                                </label></div>
-                        </div>
-                        <a href="https://github.com/mfriik/dnd5e-quickref/issues" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Leave Feedback" id="feedback-link-item">
-                            <div class="item-text-container text">
-                                <div class="item-title">Leave Feedback</div>
-                                <div class="item-desc">Found an issue or have a suggestion? Let me know!</div>
-                            </div>
+                            <span class="settings-link-icon" aria-hidden="true"></span>
                         </a>
-                        <a href="https://dndtest.misiek.win" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Visit D&D Test Site" id="dnd-test-site-link-item">
-                            <div class="item-text-container text">
-                                <div class="item-title">Open New D&D Test Site</div>
-                                <div class="item-desc">Check out the new D&D test site for new experimental features that I intend to implement at some point on the main page.</div>
+                        <a href="./" data-site-href="site" target="_blank" rel="noopener noreferrer" class="item settings-item" title="Open Site Address" id="site-link-item">
+                            <div class="item-text-container">
+                                <div class="item-title">Open <span data-site-text="name">D&D Quick Reference</span></div>
+                                <div class="item-desc">Bookmark or share the address: <span data-site-text="domain">this site</span> <span class="sr-only">(opens in a new tab)</span></div>
                             </div>
-                            <div class="item-icon iconsize icon-bubbling-flask" aria-hidden="true"></div>
+                            <span class="settings-link-icon" aria-hidden="true"></span>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        <footer class="site-footer">
+            <span>Made for the moments between dice rolls.</span>
+            <a href="https://github.com/mfriik/dnd5e-quickref" data-site-href="repository" target="_blank" rel="noopener noreferrer">View on GitHub <span class="sr-only">(opens in a new tab)</span><span aria-hidden="true">&#8599;</span></a>
+        </footer>
     </div>
+    <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-heading" aria-describedby="help-intro">
+        <div class="help-annotations" aria-hidden="true"></div>
+        <section class="help-sheet">
+            <div class="help-heading">
+                <h2 id="help-heading">How to Use This Page</h2>
+                <button type="button" id="help-close" class="menu-control" aria-label="Close help" autofocus>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m6 6 12 12M18 6 6 18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="help-body" tabindex="0" role="region" aria-label="Page instructions">
+                <p id="help-intro">The page is paused for help. On larger screens, descriptions appear below visible controls. Close help to scroll to other controls, then reopen it. On small screens, read the guide below. Close with X or `Esc` key.</p>
+                <ol id="help-topics"></ol>
+            </div>
+        </section>
+    </dialog>
     <!-- Cookie notice: informs users about cookie usage and provides an accept button -->
-    <div id="cookie-notice" class="cookie-notice">
-        <p>This website uses cookies to ensure you get the best experience on our website.</p>
-        <button id="accept-cookies">Accept</button>
+    <div id="cookie-notice" class="cookie-notice" role="region" aria-label="Cookie notice" hidden>
+        <p>This website saves your preferences in your browser.<br>Hosting or third-party services may use cookies.</p>
+        <button type="button" id="accept-cookies">Accept</button>
     </div>
+    <!-- Deployment links resolved from the site's CNAME domain -->
+    <script src="js/site.js"></script>
     <!-- Main quickref JavaScript logic: handles dynamic content, toggles, and filtering -->
-    <script type="text/javascript" src="js/quickref.js" charset="utf-8"></script>
-    <script>
-        // Cookie notice logic: shows the notice if not accepted, hides it on accept
-        document.addEventListener('DOMContentLoaded', function () {
-            var cookieNotice = document.getElementById('cookie-notice');
-            var acceptButton = document.getElementById('accept-cookies');
-
-            if (!localStorage.getItem('cookiesAccepted')) {
-                cookieNotice.style.display = 'block';
-            }
-
-            acceptButton.addEventListener('click', function () {
-                localStorage.setItem('cookiesAccepted', 'true');
-                cookieNotice.style.display = 'none';
-            });
-        });
-    </script>
+    <script type="text/javascript" src="js/quickref.js" charset="utf-8" onerror="document.documentElement.classList.remove('rules-loading'); console.error('Quick reference application could not be loaded.');"></script>
 
 </body>
 

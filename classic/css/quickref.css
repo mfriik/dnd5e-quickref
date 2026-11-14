@@ -1,0 +1,853 @@
+/* Main stylesheet for D&D 5e Quick Reference web app */
+
+/* Section containers: main card-like blocks for each rules section */
+.section-container {
+    border: 8px solid;
+    border-radius: 8px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    width: 100%;
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+}
+
+/* Content area inside each section */
+.section-content {
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 0;
+    background-color: white;
+    border-color: inherit;
+    font-size: inherit;
+}
+
+/* Section title bar */
+.section-title {
+    height: 32px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: Lora, 'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif;
+    font-variant: small-caps;
+    font-weight: bold;
+    background-color: inherit;
+    color: white;
+    font-size: 16pt;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.section-title-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title .chevron {
+    transition: transform 0.3s ease;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left: 4px;
+}
+
+.section-title .chevron:after {
+    content: '▸';
+}
+
+.section-title .chevron.collapsed {
+    transform: rotate(90deg);
+}
+
+/* "Collapse all items" button in section title */
+.collapse-all-btn {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-size: 11pt;
+    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.collapse-all-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.collapse-all-btn:active {
+    background-color: inherit;
+    transition-duration: 0.05s; /* Make the click feedback feel faster */
+}
+
+.collapse-all-btn:disabled {
+    filter: grayscale(80%);
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: inherit;
+}
+
+
+/* Animated collapse/expand for section content. We animate max-height and opacity.
+   JS will set explicit max-height values during the transition so the animation is smooth. */
+.section-content {
+    overflow: hidden;
+    transition: max-height 300ms ease, opacity 220ms ease;
+    /* default visible state */
+    max-height: none;
+    opacity: 1;
+}
+
+.section-content.collapsed {
+    /* fallback: collapsed state when JS is not available */
+    max-height: 0 !important;
+    opacity: 0;
+}
+
+/* Utility class for floating elements to the right */
+.float-right {
+    float: right;
+}
+
+
+/* Row container for items and text in sections */
+.section-row {
+    font-size: inherit;
+}
+
+.section-row:before,
+.section-row:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+
+.section-row+.section-subtitle {
+    margin-top: 1em;
+}
+
+/* Ensure subtitle is readable in light mode by overriding the .text color */
+.section-container .section-content .section-subtitle.text {
+    color: #000 !important;
+}
+
+/* Item card: represents a single rule or action */
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center header vertically when collapsed */
+    font-size: inherit;
+    vertical-align: top;
+    box-sizing: border-box;
+    border: 1px solid;
+    border-radius: 4px; 
+    /* background-color: #fff; */ /* Will be set per-section */
+    overflow: hidden;
+}
+
+/* Add transitions for smooth filtering */
+.item {
+    transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.item-hidden {
+    display: none !important;
+}
+
+/* When item is expanded, align header to the top */
+.item:has(.item-content:not(.collapsed)) {
+    justify-content: flex-start;
+    background-color: #fff;
+}
+
+.dark-mode-active .item:has(.item-content:not(.collapsed)) {
+    background-color: #333;
+}
+
+/* When item is expanded, change text color for readability */
+.section-container .item:has(.item-content:not(.collapsed)) {
+    color: #000 !important; /* Black text for light mode */
+}
+.dark-mode-active .section-container .item:has(.item-content:not(.collapsed)) {
+    color: #fff !important; /* White text for dark mode */
+}
+
+.item-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* flex-grow: 1; */ /* Removed to keep header at top */
+    padding: 4px;
+}
+
+.item-header .item-text-container,
+.item-header .chevron {
+    /* color: white; */ /* Color will be inherited or set by section */
+}
+
+.item-header .chevron {
+    transition: transform 0.3s ease;
+    font-size: 20px;
+    line-height: 20px;
+    margin-left: auto;
+    padding: 0 8px;
+}
+
+.item-header .chevron:after {
+    content: '▸';
+}
+
+.item-header .chevron.collapsed {
+    transform: rotate(90deg);
+}
+
+.item-content {
+    overflow: hidden;
+    transition: max-height 300ms ease, opacity 220ms ease, padding 300ms ease;
+    /* default visible state */
+    max-height: none;
+    opacity: 1;
+    padding: 8px;
+    background-color: #fafafa;
+}
+
+.item-content.collapsed {
+    max-height: 0 !important;
+    opacity: 0;
+    padding: 0 8px;
+}
+
+.item-description, .item-reference {
+    font-style: italic;
+    font-size: inherit;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Icon for each item */
+.item-icon {
+    float: left;
+    flex: 0 0 auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+/* Title of the item */
+.item-title {
+    font-weight: bold;
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Subtitle/description of the item */
+.item-desc {
+    font-style: italic;
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Container for item text */
+.item-text-container {
+    flex: 1;
+    padding-right: 4px;
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */ /* Removed to align text to top */
+}
+
+/* Section and item color themes for each rules section */
+#section-movement,
+#section-movement .item {
+    background-color: maroon;
+    color: white;
+    border-color: maroon;
+}
+#section-movement .item {
+    border-color: maroon;
+}
+#section-movement .text {
+    color: white;
+}
+#section-action,
+#section-action .item {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+#section-action .item {
+    border-color: black;
+}
+#section-action .text {
+    color: white;
+}
+#section-bonus-action,
+#section-bonus-action .item {
+    background-color: indigo;
+    color: white;
+    border-color: indigo;
+}
+#section-bonus-action .item {
+    border-color: indigo;
+}
+#section-bonus-action .text {
+    color: white;
+}
+#section-reaction,
+#section-reaction .item {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+#section-reaction .item {
+    border-color: green;
+}
+#section-reaction .text {
+    color: white;
+}
+#section-condition,
+#section-condition .item {
+    background-color: darkgoldenrod;
+    color: white;
+    border-color: darkgoldenrod;
+}
+#section-condition .item {
+    border-color: darkgoldenrod;
+}
+#section-condition .text {
+    color: white;
+}
+#section-environment,
+#section-environment .item {
+    background-color: teal;
+    color: white;
+    border-color: teal;
+}
+#section-environment .item {
+    border-color: teal;
+}
+#section-environment .text {
+    color: white;
+}
+#section-settings,
+#section-settings .section-title {
+    background-color: darkblue;
+    color: white;
+    border-color: darkblue;
+}
+#section-settings .item {
+    border-color: darkblue;
+    background-color: #fff;
+}
+#section-settings .text {
+    color: #000;
+}
+
+/* Page fade transitions for ruleset switching */
+body {
+    opacity: 1; /* Start with full opacity */
+    transition: opacity 650ms ease-in-out;
+}
+body.fade-in {
+    /* This class can be used by JS if a fade-in is desired on load */
+}
+body.fade-out {
+    opacity: 0;
+}
+
+/* Page container: centers the main content */
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+/* Utility and layout classes */
+.hidden {
+    display: none;
+}
+ul {
+    padding-left: 20px;
+}
+p,
+hr {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+hr {
+    border: 0px;
+    border-top: 1px solid gray;
+}
+p:first-child {
+    margin-top: 1em;
+}
+
+/* Responsive font and item sizes for different devices */
+/* Smart phone, portrait */
+@media (min-width: 0px) and (max-width: 600px) {
+    .fontsize {
+        font-size: 12pt;
+    }
+
+    .iconsize {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* .itemsize {
+        width: 100%;
+        /* padding-right: 0; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Smart phone, landscape */
+@media (min-width: 601px) and (max-width: 767px) {
+    .fontsize {
+        font-size: 11pt;
+    }
+
+    .iconsize {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* .itemsize {
+        width: 50%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Tablet, portrait */
+@media (min-width: 768px) and (max-width: 991px) {
+    .fontsize {
+        font-size: 11pt;
+    }
+
+    .iconsize {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* .itemsize {
+        width: 33%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Tablet, landscape */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .fontsize {
+        font-size: 12pt;
+    }
+
+    .iconsize {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* .itemsize {
+        width: 33%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Small desktop screen */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .fontsize {
+        font-size: 12pt;
+    }
+
+    .iconsize {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* .itemsize {
+        width: 25%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Large desktop screen */
+@media (min-width: 1600px) {
+    .fontsize {
+        font-size: 12pt;
+    }
+
+    .iconsize {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* .itemsize {
+        width: 20%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    /* } */
+}
+
+/* Flexible item sizing */
+.itemsize {
+    /* flex-grow: 1; */
+    /* flex-basis: 280px; */
+    width: 100%; /* Items will take the width of the grid column */
+}
+
+/* Print */
+@media print {
+    .fontsize {
+        font-size: 10pt;
+    }
+
+    .iconsize {
+        width: 36px;
+        height: 36px;
+    }
+
+    .itemsize {
+        width: 33%;
+        /* padding-right: 4px; */ /* No padding needed with margin */
+    }
+}
+
+/* Switch/toggle styles for settings */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 28px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked+.slider {
+    background-color: darkblue;
+}
+input:focus+.slider {
+    box-shadow: 0 0 1px darkblue;
+}
+input:checked+.slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+.slider.round {
+    border-radius: 28px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+.settings {
+    font-weight: bold;
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+}
+
+/* Settings item specific styles */
+.settings-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px;
+}
+
+.settings-item .item-text-container {
+    padding-right: 8px;
+}
+
+.settings-item .item-text-container {
+    flex-shrink: 1; /* Allow text to shrink and wrap */
+    min-width: 0; /* Allow flex item to shrink below its content size */
+}
+
+.settings-item .item-toggle {
+    margin-left: auto;
+}
+
+.settings-item .item-icon {
+    margin-left: auto;
+    margin-right: 0;
+    filter: brightness(0);
+}
+
+#site-link-item .item-icon {
+    background-image: url(../../img/castle.png);
+}
+
+/* Container for settings items to enable flex grid layout */
+#settings-items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 8px;
+}
+
+.items-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 8px;
+    align-items: start;
+}
+
+/* Remove float-clearing pseudo-elements from grid containers to prevent empty cells */
+.items-grid-container::before,
+.items-grid-container::after,
+#settings-items-container::before,
+#settings-items-container::after {
+    display: none;
+}
+
+/* Dark mode overrides for backgrounds, text, and modal */
+/* Dark mode background and text color */
+.dark-mode-active {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Section container border color in dark mode */
+.dark-mode-active .section-container {
+    border-color: #444;
+}
+
+/* Section content background and text color in dark mode */
+.dark-mode-active .section-content {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Section row, subtitle, and modal reference text color in dark mode */
+.dark-mode-active .section-row,
+.dark-mode-active .section-container .section-content .section-subtitle.text {
+    color: #fff !important;
+}
+
+
+/* Item title, description, and text container color in dark mode */
+.dark-mode-active .item-title,
+.dark-mode-active .item-desc,
+.dark-mode-active .item-text-container {
+    color: #fff;
+}
+
+/* Horizontal rule color in dark mode */
+.dark-mode-active hr {
+    border-top-color: #666;
+}
+
+.dark-mode-active .item-content {
+    background-color: #2a2a2a;
+}
+
+
+.dark-mode-active #section-movement,
+.dark-mode-active #section-movement .item {
+    background-color: #8f3838;
+    border-color: #8f3838;
+}
+.dark-mode-active #section-movement .item {
+    border-color: #8f3838;
+}
+.dark-mode-active #section-movement .text {
+    color: #fff;
+}
+.dark-mode-active #section-action,
+.dark-mode-active #section-action .item {
+    background-color: #09151A;
+    border-color: #09151A;
+}
+.dark-mode-active #section-action .item {
+    border-color: #09151A;
+}
+.dark-mode-active #section-action .text {
+    color: #fff;
+}
+.dark-mode-active #section-bonus-action,
+.dark-mode-active #section-bonus-action .item {
+    background-color: #311942;
+    border-color: #311942;
+}
+.dark-mode-active #section-bonus-action .item {
+    border-color: #311942;
+}
+.dark-mode-active #section-bonus-action .text {
+    color: #fff;
+}
+.dark-mode-active #section-reaction,
+.dark-mode-active #section-reaction .item {
+    background-color: DarkOliveGreen;
+    border-color: DarkOliveGreen;
+}
+.dark-mode-active #section-reaction .item {
+    border-color: DarkOliveGreen;
+}
+.dark-mode-active #section-reaction .text {
+    color: #fff;
+}
+.dark-mode-active #section-condition .text {
+    color: #fff;
+}
+.dark-mode-active #section-condition,
+.dark-mode-active #section-condition .item {
+    background-color: #7a4b2a;
+    border-color: #7a4b2a;
+}
+.dark-mode-active #section-condition .item {
+    border-color: #7a4b2a;
+}
+.dark-mode-active #section-environment,
+.dark-mode-active #section-environment .item {
+    background-color: #2f4f4f;
+    border-color: #2f4f4f;
+}
+.dark-mode-active #section-environment .item {
+    border-color: #2f4f4f;
+}
+.dark-mode-active #section-environment .text {
+    color: #fff;
+}
+.dark-mode-active #section-settings,
+.dark-mode-active #section-settings .section-title {
+    background-color: DarkSlateBlue;
+    border-color: DarkSlateBlue;
+}
+.dark-mode-active #section-settings .item {
+    border-color: DarkSlateBlue;
+    background-color: #333;
+}
+.dark-mode-active #section-settings .text {
+    /* Subtitle color is handled by the more specific rule for .section-subtitle */
+    color: #fff;
+}
+
+.dark-mode-active #section-settings .item-icon {
+    filter: none;
+}
+
+/* Switch styles in dark mode */
+.dark-mode-active input:checked+.slider {
+    background-color: DarkSlateBlue;
+}
+.dark-mode-active input:focus+.slider {
+    box-shadow: 0 0 1px DarkSlateBlue;
+}
+
+/* Cookie notice copied from the new layout; its colors follow the classic dark mode switch */
+html {
+    scroll-padding-bottom: var(--cookie-space, 0px);
+}
+body.has-cookie-notice {
+    padding-bottom: var(--cookie-space, 140px);
+}
+.cookie-notice {
+    --cookie-surface: #fffefa;
+    --cookie-text: #262331;
+    --cookie-line: #81798b;
+    --cookie-accent: #8a652c;
+    --cookie-accent-hover: #705021;
+    --cookie-on-accent: #ffffff;
+    --cookie-focus: #2264b7;
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(720px, calc(100% - 32px));
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px;
+    border: 1px solid var(--cookie-line);
+    border-radius: 12px;
+    background: var(--cookie-surface);
+    color: var(--cookie-text);
+    box-shadow: 0 8px 40px rgb(0 0 0 / 18%);
+    z-index: 9999;
+    font-family: 'Noto Sans', Calibri, Helvetica, Arial, sans-serif;
+    font-size: .8125rem;
+    line-height: 1.6;
+}
+.dark-mode-active .cookie-notice {
+    --cookie-surface: #1e1e1e;
+    --cookie-text: #f2f2f2;
+    --cookie-line: #909090;
+    --cookie-accent: #d6b77c;
+    --cookie-accent-hover: #e8cb94;
+    --cookie-on-accent: #202020;
+    --cookie-focus: #90bfff;
+}
+.cookie-notice[hidden] {
+    display: none;
+}
+.cookie-notice p {
+    margin: 0;
+    flex: 1;
+}
+.cookie-notice button {
+    min-height: 44px;
+    flex-shrink: 0;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--cookie-accent);
+    color: var(--cookie-on-accent);
+    font-family: inherit;
+    font-weight: bold;
+    font-size: .875rem;
+    cursor: pointer;
+}
+.cookie-notice button:hover {
+    background: var(--cookie-accent-hover);
+}
+.cookie-notice button:focus-visible {
+    outline: 3px solid var(--cookie-focus);
+    outline-offset: 3px;
+}
+@media (max-width: 380px) {
+    .cookie-notice { flex-wrap: wrap; gap: 10px; padding: 12px; }
+    .cookie-notice button { margin-left: auto; }
+    .cookie-notice p { flex-basis: 100%; }
+}
+@media print {
+    body.has-cookie-notice { padding-bottom: 0; }
+    .cookie-notice { display: none !important; }
+}

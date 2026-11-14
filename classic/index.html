@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="darkreader-lock">
+    <title>D&D 5e Quick Reference</title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/quickref.css">
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
+    <!-- Javascript -->
+    <script>
+        // Show the saved layout and force a hard refresh if the cached version of the app is outdated.
+        // This logic is inlined in the HTML to ensure it runs even if the main JS file is cached.
+        (function() {
+            // Increment this version number when you deploy breaking changes or significant updates.
+            // Keep it in sync with the new layout in ../index.html.
+            const CURRENT_APP_VERSION = '3.1.0';
+            window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
+            const VERSION_KEY = 'appVersion';
+            const storedVersion = localStorage.getItem(VERSION_KEY);
+
+            // The classic and new layouts are separate pages; this one is the classic layout.
+            let layout = localStorage.getItem('pageLayout');
+            if (layout !== 'classic' && layout !== 'modern') {
+                // Visitors returning from the 2.x site keep the classic look they already know.
+                layout = storedVersion && parseInt(storedVersion, 10) < 3 ? 'classic' : 'modern';
+                localStorage.setItem('pageLayout', layout);
+            }
+            if (layout !== 'classic') {
+                document.documentElement.style.visibility = 'hidden';
+                location.replace('../' + location.search + location.hash);
+                return;
+            }
+
+            if (storedVersion !== CURRENT_APP_VERSION) {
+                localStorage.setItem(VERSION_KEY, CURRENT_APP_VERSION);
+                // Expand Settings after an update so changes there are visible
+                localStorage.removeItem('section-settings-collapsed');
+                // The 'true' argument forces a hard refresh, clearing the cache for the page.
+                location.reload(true);
+            }
+        })();
+    </script>
+</head>
+
+<body class="page-background">
+    <div class="dark-mode">
+        <div class="page fontsize" data-size="fullscreen">
+
+            <!-- Movement section -->
+            <div id="section-movement" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Movement
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                        <span class="float-right">limited by movement speed</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        You can move at any time during your turn (before, after, or during actions).
+                    </div>
+                    <div class="section-row" id="basic-movement">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action section -->
+            <div id="section-action" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Action
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                        <span class="float-right">1/turn</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        You can also interact with one object or feature of the
+                        environment for free.
+                    </div>
+                    <div class="section-row" id="basic-actions"></div>
+                </div>
+            </div>
+
+            <!-- Bonus action section -->
+            <div id="section-bonus-action" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Bonus action
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                        <span class="float-right">max. 1/turn</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        You can take a bonus action only when a special ability, spell, or feature
+                        states that you can do something as a bonus action.
+                    </div>
+                    <div class="section-row" id="basic-bonus-actions"></div>
+                </div>
+            </div>
+
+            <!-- Reaction section -->
+            <div id="section-reaction" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Reaction
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                        <span class="float-right">max. 1/round</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        A reaction is an instant response to a trigger of some kind, which
+                        can occur on your turn or on someone else's.
+                    </div>
+                    <div class="section-row" id="basic-reactions"></div>
+                </div>
+            </div>
+
+            <!-- Condition section -->
+            <div id="section-condition" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Condition
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        Conditions alter your capabilities in a variety of ways, and can arise as a result of a spell, a
+                        class feature, a monster's attack, or other effect.
+                    </div>
+                    <div class="section-row" id="basic-conditions"></div>
+                </div>
+            </div>
+
+            <!-- Environmental section -->
+            <div id="section-environment" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Environmental Effects
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn">Collapse all items</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        Effects that obscure vision can prove a significant hindrance to most adventuring tasks.
+                    </div>
+                    <div class="section-row" id="environment-obscurance"></div>
+                    <div class="section-row section-subtitle text fontsize">
+                        The presence or absence of light in an environment creates three categories of illumination.
+                    </div>
+                    <div class="section-row" id="environment-light"></div>
+                    <div class="section-row section-subtitle text fontsize">
+                        Some creatures have extraordinary senses that allow them to perceive their environment.
+                    </div>
+                    <div class="section-row" id="environment-vision"></div>
+                    <div class="section-row section-subtitle text fontsize">
+                        Obstacles can provide cover during combat, making a target more difficult to harm.
+                    </div>
+                    <div class="section-row" id="environment-cover"></div>
+                </div>
+            </div>
+            <!-- Settings section -->
+            <div id="section-settings" class="section-container">
+                <div class="section-title">
+                    <div class="section-title-content">
+                        <div class="section-title-text">
+                            Settings
+                            <span class="chevron"></span>
+                            <button class="collapse-all-btn" id="app-version-display" disabled>v0.0.0</button>
+                        </div>
+                        <span class="float-right" id="active-ruleset-label"></span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-row section-subtitle text fontsize">
+                        You can change below toggles to adjust settings for this page.
+                    </div>
+                    <div class="section-row" id="settings-items-container">
+                        <div class="item itemsize settings-item" title="Include Optional Rules">
+                            <div class="item-text-container text" id="optional-toggle-item">
+                                <div class="item-title">Include Optional Rules (*)</div>
+                                <div class="item-desc">Show/hide optional official rules.</div>
+                            </div>
+                            <div class="item-toggle"><label class="switch">
+                                    <input type="checkbox" id="optional-switch">
+                                    <span class="slider round"></span>
+                                </label></div>
+                        </div>
+                        <div class="item itemsize settings-item" title="Include Homebre Rules">
+                            <div class="item-text-container text" id="homebrew-toggle-item">
+                                <div class="item-title">Include Homebrew Rules (**)</div>
+                                <div class="item-desc">Show/hide most common homebrew rules.</div>
+                            </div>
+                            <div class="item-toggle"><label class="switch">
+                                    <input type="checkbox" id="homebrew-switch">
+                                    <span class="slider round"></span>
+                                </label></div>
+                        </div>
+                        <div class="item itemsize settings-item" title="Darkmode" hidden>
+                            <div class="item-text-container text" id="darkmode-toggle-item">
+                                <div class="item-title">Darkmode</div>
+                                <div class="item-desc">Enable/Disable Darkmode</div>
+                            </div>
+                            <div class="item-toggle"><label class="switch">
+                                    <input type="checkbox" id="darkmode-switch">
+                                    <span class="slider round"></span>
+                                </label></div>
+                        </div>
+                        <div class="item itemsize settings-item" title="Include 2024 Rules">
+                            <div class="item-text-container text" id="2024rules-toggle-item">
+                                <div class="item-title">Switch to 2024 Rules</div>
+                                <div class="item-desc">Enable D&D 2024 Rules.</div>
+                            </div>
+                            <div class="item-toggle"><label class="switch">
+                                    <input type="checkbox" id="rules2024-switch">
+                                    <span class="slider round"></span>
+                                </label></div>
+                        </div>
+                        <div class="item itemsize settings-item" title="Use Classic Layout">
+                            <div class="item-text-container text" id="classic-layout-toggle-item">
+                                <div class="item-title">Classic Layout</div>
+                                <div class="item-desc">Turn off to switch to the new look of this page. The page reloads.</div>
+                            </div>
+                            <div class="item-toggle"><label class="switch">
+                                    <input type="checkbox" id="classic-layout-switch" checked>
+                                    <span class="slider round"></span>
+                                </label></div>
+                        </div>
+                        <a href="https://github.com/mfriik/dnd5e-quickref/issues" data-site-href="issues" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Leave Feedback" id="feedback-link-item">
+                            <div class="item-text-container text">
+                                <div class="item-title">Leave Feedback</div>
+                                <div class="item-desc">Found an issue or have a suggestion? Let me know!</div>
+                            </div>
+                        </a>
+                        <a href="../" data-site-href="site" target="_blank" rel="noopener noreferrer" class="item itemsize settings-item" title="Open Site Address" id="site-link-item">
+                            <div class="item-text-container text">
+                                <div class="item-title">Open <span data-site-text="name">D&D Quick Reference</span></div>
+                                <div class="item-desc">Bookmark or share the address: <span data-site-text="domain">this site</span></div>
+                            </div>
+                            <div class="item-icon iconsize" aria-hidden="true"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cookie notice: informs users about cookie usage and provides an accept button -->
+    <div id="cookie-notice" class="cookie-notice" role="region" aria-label="Cookie notice" hidden>
+        <p>This website saves your preferences in your browser.<br>Hosting or third-party services may use cookies.</p>
+        <button type="button" id="accept-cookies">Accept</button>
+    </div>
+    <!-- Deployment links resolved from the site's CNAME domain -->
+    <script src="../js/site.js"></script>
+    <!-- Main quickref JavaScript logic: handles dynamic content, toggles, and filtering -->
+    <script type="text/javascript" src="js/quickref.js" charset="utf-8"></script>
+
+</body>
+
+</html>
