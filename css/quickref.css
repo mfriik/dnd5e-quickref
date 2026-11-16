@@ -234,7 +234,7 @@ h1 span { color: var(--gold); }
 .rule-search input:focus-visible { outline: none; }
 .rule-search input::-webkit-search-cancel-button,
 .rule-search input::-webkit-search-decoration { appearance: none; }
-.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--accent); pointer-events: none; }
 .search-clear {
     position: absolute;
     right: 4px;
@@ -248,9 +248,9 @@ h1 span { color: var(--gold); }
     border: 0;
     border-radius: 8px;
     background: transparent;
-    color: var(--muted);
+    color: var(--accent);
 }
-.search-clear:hover { background: var(--surface-hover); color: var(--text); }
+.search-clear:hover { background: var(--surface-hover); color: var(--accent-hover); }
 .search-empty { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .menu-group {
     display: flex;
