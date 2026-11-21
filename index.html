@@ -26,7 +26,7 @@
         (function() {
             // Increment this version number when you deploy breaking changes or significant updates.
             // Keep it in sync with classic/index.html.
-            const CURRENT_APP_VERSION = '3.1.0';
+            const CURRENT_APP_VERSION = '3.1.1';
             window.dndQuickRefAppVersion = CURRENT_APP_VERSION; // Expose version for other scripts
             const VERSION_KEY = 'appVersion';
             const storedVersion = localStorage.getItem(VERSION_KEY);
@@ -308,10 +308,10 @@
                             </div>
                             <span class="settings-link-icon" aria-hidden="true"></span>
                         </a>
-                        <a href="./" data-site-href="site" target="_blank" rel="noopener noreferrer" class="item settings-item" title="Open Site Address" id="site-link-item">
+                        <a href="./" data-site-href="otherSite" target="_blank" rel="noopener noreferrer" class="item settings-item" title="Open Other Site" id="site-link-item">
                             <div class="item-text-container">
-                                <div class="item-title">Open <span data-site-text="name">D&D Quick Reference</span></div>
-                                <div class="item-desc">Bookmark or share the address: <span data-site-text="domain">this site</span> <span class="sr-only">(opens in a new tab)</span></div>
+                                <div class="item-title">Open <span data-site-text="otherName">other D&D site</span></div>
+                                <div class="item-desc">Visit the other deployment: <span data-site-text="otherDomain">other site</span> <span class="sr-only">(opens in a new tab)</span></div>
                             </div>
                             <span class="settings-link-icon" aria-hidden="true"></span>
                         </a>

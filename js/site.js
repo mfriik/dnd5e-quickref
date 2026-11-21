@@ -5,14 +5,20 @@
     const sites = {
         'dnd.misiek.win': {
             name: 'Main D&D Site',
-            repository: 'https://github.com/mfriik/dnd5e-quickref'
+            repository: 'https://github.com/mfriik/dnd5e-quickref',
+            otherDomain: 'dndtest.misiek.win'
         },
         'dndtest.misiek.win': {
             name: 'D&D Test Site',
-            repository: 'https://github.com/mfriik/DnD-Quick-Ref-Experimental'
+            repository: 'https://github.com/mfriik/DnD-Quick-Ref-Experimental',
+            otherDomain: 'dnd.misiek.win'
         }
     };
-    const unknownSite = {name: 'D&D Quick Reference', repository: 'https://github.com/mfriik/dnd5e-quickref'};
+    const unknownSite = {
+        name: 'D&D Quick Reference',
+        repository: 'https://github.com/mfriik/dnd5e-quickref',
+        otherDomain: 'dndtest.misiek.win'
+    };
     const siteRoot = new URL('../', document.currentScript.src);
 
     function isKnown(domain) {
@@ -36,7 +42,10 @@
             name: site.name,
             site: isKnown(domain) ? 'https://' + domain + '/' : siteRoot.href,
             repository: site.repository,
-            issues: site.repository + '/issues'
+            issues: site.repository + '/issues',
+            otherSite: 'https://' + site.otherDomain + '/',
+            otherName: sites[site.otherDomain].name,
+            otherDomain: site.otherDomain
         };
     }
 

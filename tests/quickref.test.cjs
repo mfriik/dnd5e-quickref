@@ -141,9 +141,9 @@ test('each page sends a saved choice of the other layout to that page with the s
     assert.equal(runHeadScript(classicHtml, {pageLayout: 'classic'}).replacedWith, null);
 });
 
-async function runSiteScript(hostname, scriptOrigin) {
-    const elements = ['site', 'repository', 'issues'].map(key => ({dataset: {siteHref: key}, href: ''}))
-        .concat(['name', 'domain'].map(key => ({dataset: {siteText: key}, textContent: ''})));
+async function runSiteScript(hostname, scriptOrigin, cname = fs.readFileSync(path.join(root, 'CNAME'), 'utf8')) {
+    const elements = ['otherSite', 'repository', 'issues'].map(key => ({dataset: {siteHref: key}, href: ''}))
+        .concat(['otherName', 'otherDomain'].map(key => ({dataset: {siteText: key}, textContent: ''})));
     const requests = [];
     const context = vm.createContext({
         URL,
@@ -156,8 +156,7 @@ async function runSiteScript(hostname, scriptOrigin) {
         },
         fetch: async url => {
             requests.push(String(url));
-            const text = fs.readFileSync(path.join(root, 'CNAME'), 'utf8');
-            return {ok: true, text: async () => text};
+            return {ok: cname !== null, text: async () => cname};
         },
         window: {}
     });
@@ -167,23 +166,56 @@ async function runSiteScript(hostname, scriptOrigin) {
     return {site, requests, elements};
 }
 
-test('away from its domain the site reads CNAME and links to that deployment', async () => {
+for (const [domain, repository, otherDomain, otherName] of [
+    ['dnd.misiek.win', 'https://github.com/mfriik/dnd5e-quickref', 'dndtest.misiek.win', 'D&D Test Site'],
+    ['dndtest.misiek.win', 'https://github.com/mfriik/DnD-Quick-Ref-Experimental', 'dnd.misiek.win', 'Main D&D Site']
+]) {
+    test(domain + ' links to the opposite site and its own repository and issues', async () => {
+        const {site, requests, elements} = await runSiteScript(domain, 'https://' + domain);
+        assert.deepEqual(requests, []);
+        assert.equal(site.domain, domain);
+        assert.equal(site.site, 'https://' + domain + '/');
+        assert.equal(site.repository, repository);
+        assert.equal(site.issues, repository + '/issues');
+        assert.deepEqual(elements.map(element => element.href || element.textContent),
+            ['https://' + otherDomain + '/', repository, repository + '/issues', otherName, otherDomain]);
+    });
+
+    test('local preview uses ' + domain + ' CNAME to select the opposite site', async () => {
+        const {site, requests} = await runSiteScript('127.0.0.1', 'http://127.0.0.1:8765/preview', domain + '\n');
+        assert.deepEqual(requests, ['http://127.0.0.1:8765/preview/CNAME']);
+        assert.equal(site.domain, domain);
+        assert.equal(site.otherSite, 'https://' + otherDomain + '/');
+        assert.equal(site.repository, repository);
+    });
+}
+
+test('the repository CNAME identifies a configured deployment', async () => {
     const cname = fs.readFileSync(path.join(root, 'CNAME'), 'utf8').trim();
-    const {site, requests, elements} = await runSiteScript('127.0.0.1', 'http://127.0.0.1:8765/preview');
-    assert.deepEqual(requests, ['http://127.0.0.1:8765/preview/CNAME']);
+    const {site} = await runSiteScript('127.0.0.1', 'http://127.0.0.1:8765/preview');
     assert.equal(site.domain, cname);
-    assert.equal(site.site, 'https://' + cname + '/');
     assert.notEqual(site.name, 'D&D Quick Reference', 'CNAME domain is missing from js/site.js');
-    assert.equal(site.issues, site.repository + '/issues');
-    assert.deepEqual(elements.map(element => element.href || element.textContent),
-        [site.site, site.repository, site.issues, site.name, cname]);
 });
 
-test('on a deployment domain the site links to that deployment without reading CNAME', async () => {
-    const {site, requests} = await runSiteScript('dndtest.misiek.win', 'https://dndtest.misiek.win');
-    assert.deepEqual(requests, []);
-    assert.equal(site.site, 'https://dndtest.misiek.win/');
-    assert.equal(site.repository, 'https://github.com/mfriik/DnD-Quick-Ref-Experimental');
+test('unknown deployment defaults the other-site link to the test site', async () => {
+    for (const cname of ['unknown.example', null]) {
+        const {elements} = await runSiteScript('127.0.0.1', 'http://127.0.0.1:8765/preview', cname);
+        assert.equal(elements[0].href, 'https://dndtest.misiek.win/');
+        assert.equal(elements[3].textContent, 'D&D Test Site');
+        assert.equal(elements[4].textContent, 'dndtest.misiek.win');
+    }
+});
+
+test('both layouts bind the settings link and its labels to the other site', () => {
+    for (const [page] of pages) {
+        const link = page.match(/<a\b[^>]*id="site-link-item"[^>]*>[\s\S]*?<\/a>/);
+        assert.ok(link, 'settings site link is missing');
+        assert.match(link[0], /data-site-href="otherSite"/);
+        assert.match(link[0], /data-site-text="otherName"/);
+        assert.match(link[0], /data-site-text="otherDomain"/);
+        assert.match(link[0], /target="_blank"/);
+        assert.match(link[0], /rel="noopener noreferrer"/);
+    }
 });
 
 test('pages and layout scripts leave deployment domains to js/site.js', () => {

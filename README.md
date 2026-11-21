@@ -99,8 +99,9 @@ short summaries, expanded explanations and source references.
   include Switch Mastery, Duck and Cover, and Dazed.
   Cards show standard rules first, then optional rules, then homebrew.
   Shove Aside and Exhaustion (2024) stay beside their standard counterparts.
-- **Give feedback or open the site address.** Both links are in Settings. They
-  point to the issue tracker and address of the deployment you are using.
+- **Give feedback or open the other site.** Both links are in Settings. Feedback
+  goes to the current deployment's issue tracker; the site link opens the test
+  site from the main site, or the main site from the test site.
 - **Get interface help.** The question-mark button after Settings opens a
   read-only guide over a dimmed page. Descriptions appear beside visible controls
   on larger screens, without a side list. Rounded gold arrows connect each
@@ -174,8 +175,11 @@ The page loads fonts from Google Fonts, with fallback fonts available.
 The site is published by GitHub Pages directly from the repository files.
 [CNAME](./CNAME) holds the custom domain of the repository's deployment. Adjust this if you want to use a different domain.
 
-To use another domain, change CNAME and add the domain to `sites` in
-[js/site.js](./js/site.js). The pages contain no deployment domains of their own.
+To use another domain, change CNAME and add the domain and its `otherDomain`
+destination to `sites` in [js/site.js](./js/site.js); the destination must
+also have a `sites` entry. The pages contain no deployment domains of their
+own. If the deployment cannot be identified, the other-site link defaults to
+the test site.
 
 Both layouts set the version in their inline head script
 (`CURRENT_APP_VERSION`). Keep the two values equal; a changed version makes
@@ -250,7 +254,7 @@ node --test
 
 These check both editions' dataset formats and icons, JavaScript syntax and
 local asset references in both layouts, search-word matching, layout selection
-and the site address taken from CNAME. They do not replace the browser
+and deployment links, including CNAME detection. They do not replace the browser
 interaction checks above.
 There is no build step.
 
